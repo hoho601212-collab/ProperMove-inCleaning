@@ -1,4 +1,8 @@
 import Link from "next/link";
-const regions=[["서울 강남구","/cleaning/seoul/gangnam","고층 공동주택·오피스텔의 창호와 출입 동선"],["서울 송파구","/cleaning/seoul/songpa","대단지 공동주택의 관리사무소·주차 조건"],["부산 해운대구","/cleaning/busan/haeundae","공동주택과 해안 생활권의 창호 상태"],["대구 수성구","/cleaning/daegu/suseong","아파트 생활권과 구축·신축 조건"],["경기 수원시","/cleaning/gyeonggi/suwon","신도시와 구도심의 다양한 주거 형태"]];
-export const metadata={title:"전국 지역별 입주청소",description:"지역과 주거 형태에 따라 달라지는 출입, 주차, 창호와 작업 조건을 확인하세요."};
-export default function Page(){return <><section className="pageHero"><div className="shell"><span className="eyebrow">LOCAL CLEANING</span><h1>전국 지역별 입주청소</h1><p>검증된 지역 데이터부터 차례로 독립적인 안내 페이지를 제공합니다.</p></div></section><section className="section shell contentGrid">{regions.map(([name,href,desc])=><Link className="contentCard" href={href} key={href}><h2>{name}</h2><p>{desc}</p><b>지역 가이드 →</b></Link>)}</section></>}
+import { regionList } from "@/lib/regions";
+
+export const metadata = { title: "전국 지역별 입주청소", description: "공식 지역 자료와 생활권별 주거·접근 조건을 바탕으로 만든 독립적인 입주청소 지역 가이드입니다.", alternates: { canonical: "/cleaning" } };
+
+export default function CleaningHub() {
+  return <><section className="pageHero"><div className="shell"><span className="eyebrow">LOCAL CLEANING GUIDE</span><h1>전국 지역별 입주청소</h1><p>지역명만 바꾼 정보가 아니라 생활권·건물·작업 동선을 조사한 지역부터 공개합니다.</p></div></section><section className="section shell"><div className="hubIntro"><h2>검증된 지역부터<br/>하나씩 깊게 만듭니다.</h2><p>지역 가격을 임의로 만들지 않습니다. 공동주택, 오피스텔, 저층 주거의 차이와 주차·엘리베이터·골목 접근처럼 실제 견적에 필요한 조건을 정리합니다.</p></div><div className="regionCardGrid">{regionList.map(region => <Link href={`/cleaning/${region.slug}`} className="regionCard" key={region.slug}><span>{region.city}</span><h2>{region.district} 입주청소</h2><p>{region.description}</p><b>지역 가이드 보기 →</b></Link>)}</div></section></>;
+}
