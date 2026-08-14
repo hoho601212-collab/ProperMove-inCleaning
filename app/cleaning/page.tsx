@@ -1,0 +1,4 @@
+import Link from "next/link";
+const regions=[["서울 강남구","/cleaning/seoul/gangnam","고층 공동주택·오피스텔의 창호와 출입 동선"],["서울 송파구","/cleaning/seoul/songpa","대단지 공동주택의 관리사무소·주차 조건"],["부산 해운대구","/cleaning/busan/haeundae","공동주택과 해안 생활권의 창호 상태"],["대구 수성구","/cleaning/daegu/suseong","아파트 생활권과 구축·신축 조건"],["경기 수원시","/cleaning/gyeonggi/suwon","신도시와 구도심의 다양한 주거 형태"]];
+export const metadata={title:"전국 지역별 입주청소",description:"지역과 주거 형태에 따라 달라지는 출입, 주차, 창호와 작업 조건을 확인하세요."};
+export default function Page(){return <><section className="pageHero"><div className="shell"><span className="eyebrow">LOCAL CLEANING</span><h1>전국 지역별 입주청소</h1><p>검증된 지역 데이터부터 차례로 독립적인 안내 페이지를 제공합니다.</p></div></section><section className="section shell contentGrid">{regions.map(([name,href,desc])=><Link className="contentCard" href={href} key={href}><h2>{name}</h2><p>{desc}</p><b>지역 가이드 →</b></Link>)}</section></>}

@@ -1,0 +1,1 @@
+export const metadata={title:"이용약관"};export default function Page(){return <><section className="pageHero"><div className="shell"><h1>이용약관</h1><p>올바른청소 서비스 이용 조건을 안내합니다.</p></div></section><section className="section shell"><div className="legal">실서비스 오픈 전 실제 운영 구조와 사업자 정보에 맞춘 이용약관을 최종 확정해야 합니다.</div></section></>}

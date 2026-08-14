@@ -1,0 +1,3 @@
+import Link from "next/link";import {guides} from "@/lib/content";
+export const metadata={title:"입주청소 가이드",description:"청소 전 준비부터 범위, 면적, 신축 분진과 청소 후 검수까지 확인하세요."};
+export default function Page(){return <><section className="pageHero"><div className="shell"><span className="eyebrow">GUIDE</span><h1>입주청소 가이드</h1><p>맡기기 전부터 청소 직후 검수까지, 실제 현장에서 필요한 내용을 정리했습니다.</p></div></section><section className="section shell contentGrid">{Object.entries(guides).map(([slug,title],i)=><Link className="contentCard" href={`/guide/${slug}`} key={slug}><span className="eyebrow">GUIDE {String(i+1).padStart(2,"0")}</span><h2>{title}</h2><p>놓치기 쉬운 조건을 단계별 체크리스트로 확인하세요.</p><b>읽어보기 →</b></Link>)}</section></>}
