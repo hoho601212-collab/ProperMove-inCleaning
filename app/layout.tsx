@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { INQUIRY_URL } from "@/lib/inquiry";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 import "./tools.css";
 import "./regions.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://proper-move-in-cleaning.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: { default: "올바른청소 | 입주청소 비교견적과 준비 가이드", template: "%s | 올바른청소" },
   description: "입주청소 범위와 현장 조건을 확인하고 여러 업체의 견적을 같은 기준으로 비교하세요.",
   applicationName: "올바른청소",
@@ -26,8 +27,7 @@ export const metadata: Metadata = {
 const nav = [["청소 종류", "/service"], ["지역별 입주청소", "/cleaning"], ["청소 가이드", "/guide"]];
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://proper-move-in-cleaning.vercel.app";
-  const websiteSchema = { "@context": "https://schema.org", "@type": "WebSite", name: "올바른청소", url: base, inLanguage: "ko-KR", description: "입주청소 범위와 지역별 작업 조건을 확인하는 청소 준비 가이드" };
+  const websiteSchema = { "@context": "https://schema.org", "@type": "WebSite", name: "올바른청소", url: SITE_URL, inLanguage: "ko-KR", description: "입주청소 범위와 지역별 작업 조건을 확인하는 청소 준비 가이드" };
   return <html lang="ko"><body>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
     <header className="siteHeader"><div className="shell navWrap">
