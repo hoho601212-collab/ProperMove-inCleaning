@@ -1,9 +1,32 @@
-import {notFound} from "next/navigation";import Link from "next/link";
-const data:{[k:string]:{name:string;title:string;intro:string;zones:string[]}}={
-"seoul/gangnam":{name:"서울 강남구",title:"강남구 입주청소, 평수보다 현장조건부터 확인하세요",intro:"공동주택과 오피스텔이 함께 있는 생활권에서는 창호 수, 수납공간, 주차와 작업자 출입 절차가 견적 조건에 영향을 줄 수 있습니다.",zones:["대단지 공동주택","고층 오피스텔","업무·상업 생활권"]},
-"seoul/songpa":{name:"서울 송파구",title:"송파구 입주청소 준비, 대단지 출입 조건까지 확인하세요",intro:"대규모 공동주택에서는 관리사무소 예약, 엘리베이터 사용과 차량 진입 절차를 청소일 전에 확인하는 것이 중요합니다.",zones:["대단지 아파트","신축·재건축 주거","생활권 중심 오피스텔"]},
-"busan/haeundae":{name:"부산 해운대구",title:"해운대구 입주청소, 창호와 주거 형태를 함께 비교하세요",intro:"고층 공동주택과 상업·관광 생활권이 공존하므로 외창 가능 범위, 주차와 작업 동선을 견적 단계에서 구분해야 합니다.",zones:["고층 공동주택","해안 생활권","상업지역 주거"]},
-"daegu/suseong":{name:"대구 수성구",title:"수성구 입주청소, 신축·구축 조건을 나눠 확인하세요",intro:"아파트 중심 생활권에서도 준공 시기와 수납 구조에 따라 공사 분진 또는 생활 오염의 작업 범위가 달라질 수 있습니다.",zones:["아파트 생활권","신축 공동주택","구축 주거지"]},
-"gyeonggi/suwon":{name:"경기 수원시",title:"수원 입주청소 업체 찾기, 생활권별 조건부터 확인하세요",intro:"신도시형 공동주택과 구도심 주거지가 함께 있어 주차, 엘리베이터, 창호와 오염 상태를 현장별로 확인해야 합니다.",zones:["신도시 공동주택","구도심 주거","오피스텔 생활권"]}}
-export function generateStaticParams(){return Object.keys(data).map(k=>{const [sido,sigungu]=k.split("/");return{sido,sigungu}})}
-export default async function Page({params}:{params:Promise<{sido:string;sigungu:string}>}){const p=await params;const item=data[`${p.sido}/${p.sigungu}`];if(!item)notFound();return <><section className="pageHero"><div className="shell"><span className="eyebrow">{item.name} LOCAL GUIDE</span><h1>{item.title}</h1><p>{item.intro}</p></div></section><section className="section shell"><div className="contentGrid">{item.zones.map((z,i)=><article className="contentCard" key={z}><span className="eyebrow">LIVING AREA {i+1}</span><h2>{z}</h2><p>건물의 준공 시기, 창호와 수납공간, 작업자 출입·주차 조건을 업체에 미리 전달하세요.</p></article>)}</div><div className="areaBox" style={{marginTop:40}}><div><h2>{item.name} 견적 준비 체크</h2><p>관리사무소 출입, 엘리베이터, 주차, 수도·전기와 폐기물 여부를 청소 전에 확인하세요.</p></div><Link className="button" href="/estimate">무료 비교견적 →</Link></div></section></>}
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { regions } from "@/lib/regions";
+
+type Props = { params: Promise<{ sido: string; sigungu: string }> };
+
+export function generateStaticParams() { return Object.keys(regions).map(key => { const [sido, sigungu] = key.split("/"); return { sido, sigungu }; }); }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`];
+  if (!region) return {};
+  return { title: region.title, description: region.description, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: region.title, description: region.description, type: "article" } };
+}
+
+export default async function RegionPage({ params }: Props) {
+  const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) notFound();
+  const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: region.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
+  const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "홈", item: "/" }, { "@type": "ListItem", position: 2, name: "지역별 입주청소", item: "/cleaning" }, { "@type": "ListItem", position: 3, name: `${region.city} ${region.district}` }] };
+  return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+    <section className="regionHero"><div className="shell"><nav className="breadcrumbs" aria-label="현재 위치"><Link href="/">홈</Link><span>›</span><Link href="/cleaning">지역별 입주청소</Link><span>›</span><b>{region.district}</b></nav><div className="regionHeroGrid"><div><span className="eyebrow">{region.eyebrow}</span><h1>{region.title}</h1><p>{region.description}</p><div className="regionActions"><Link className="button" href="/estimate">무료 비교견적 →</Link><a className="textLink" href="#local-check">지역 체크포인트 보기 ↓</a></div></div><div className="regionPlaceholder" role="img" aria-label={`${region.city} ${region.district} 지역 대표 이미지 준비 중`}><span>{region.city}</span><b>{region.district}</b><small>지역 대표 이미지 준비 중</small></div></div></div></section>
+    <section className="regionSection shell"><div className="regionIntro"><div><span className="eyebrow">LOCAL FINGERPRINT</span><h2>{region.district}에서는<br/>이 조건부터 보세요</h2></div><div>{region.intro.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div><div className="intentGrid">{region.searchNeeds.map((need, index) => <div key={need}><span>0{index + 1}</span><b>{need}</b></div>)}</div></section>
+    <section className="regionSection regionSoft"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">LIVING AREA</span><h2>생활권별로 달라지는 청소 조건</h2></div><span className="sectionNote">같은 구 안에서도 건물별 확인이 필요합니다</span></div><div className="zoneGrid">{region.zones.map(zone => <article key={zone.name}><span>{zone.housing}</span><h3>{zone.name}</h3><p>{zone.cleaning}</p></article>)}</div></div></section>
+    <section className="regionSection shell"><div className="buildCompare"><article><span className="compareLabel new">신축·준신축</span><h2>공사 잔여물을 따로 확인</h2><ul>{region.newBuild.map(item => <li key={item}>{item}</li>)}</ul></article><article><span className="compareLabel old">기존·구축</span><h2>생활 오염과 접근 조건 확인</h2><ul>{region.oldBuild.map(item => <li key={item}>{item}</li>)}</ul></article></div><p className="infoNotice">신축 청소가 실내공기질 개선이나 의학적 효과를 보장하지는 않습니다. 청소, 환기, 실내공기질 측정은 서로 다른 영역입니다.</p></section>
+    <section className="regionSection accessSection"><div className="shell accessGrid"><div><span className="eyebrow">ACCESS & PARKING</span><h2>작업 전 출입·주차 확인</h2><p>청소 품질뿐 아니라 작업자가 집까지 장비를 옮길 수 있는 조건도 예상 인원과 시간에 영향을 줄 수 있습니다.</p></div><ol>{region.access.map((item, index) => <li key={item}><b>{index + 1}</b><span>{item}</span></li>)}</ol></div></section>
+    <section id="local-check" className="regionSection shell"><div className="sectionHead"><div><span className="eyebrow">LOCAL CHECKLIST</span><h2>{region.district} 입주청소 견적 체크</h2></div><Link href="/guide/move-in-cleaning-checklist" className="textLink">전체 준비 가이드 →</Link></div><div className="localChecklist">{region.checklist.map(item => <div key={item}><i>✓</i><span>{item}</span></div>)}</div></section>
+    <section className="regionSection regionSoft"><div className="shell faqLayout"><div><span className="eyebrow">LOCAL FAQ</span><h2>{region.district}에서 자주 묻는 질문</h2><p>업체마다 기본 범위와 추가요금 기준이 다를 수 있으므로 최종 견적서에서 다시 확인하세요.</p></div><div className="faqList">{region.faq.map(item => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></div></section>
+    <section className="regionSection shell"><div className="sourceBox"><div><span className="eyebrow">FACT CHECK</span><h2>지역 정보 확인 자료</h2><p>지역의 행정구역과 주거 특징은 공식 자료를 우선 참고했습니다. 가격이나 특정 업체의 품질을 의미하지 않습니다.</p></div><div>{region.sources.map(source => <a href={source.href} target="_blank" rel="noreferrer" key={source.href}>{source.label}<span>↗</span></a>)}</div></div><div className="nearby"><b>함께 보는 지역</b>{region.nearby.map(item => <Link href={item.href} key={item.href}>{item.label} →</Link>)}</div></section>
+    <section className="finalCta"><div className="shell"><span>{region.city} {region.district} 청소 조건을 정리했다면</span><h2>가격이 아니라 같은 작업 범위로<br/>업체 견적을 비교하세요.</h2><Link href="/estimate" className="button buttonWhite">무료 비교견적 시작하기 →</Link></div></section>
+  </>;
+}
