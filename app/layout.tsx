@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { INQUIRY_URL } from "@/lib/inquiry";
 import "./globals.css";
 import "./tools.css";
 import "./regions.css";
@@ -17,9 +18,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <header className="siteHeader"><div className="shell navWrap">
       <Link href="/" className="brand" aria-label="올바른청소 홈"><span className="brandMark">✓</span>올바른청소</Link>
       <nav aria-label="주요 메뉴">{nav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
-      <Link href="/estimate" className="button buttonSmall">무료 비교견적</Link>
+      {/* 기존 내부 견적 링크 임시 보존: /estimate */}
+      <a href={INQUIRY_URL} className="button buttonSmall">견적문의</a>
     </div></header>
     <main>{children}</main>
-    <footer><div className="shell footerGrid"><div><Link href="/" className="brand brandLight"><span className="brandMark">✓</span>올바른청소</Link><p>가격뿐 아니라 청소 범위와 작업 조건까지<br/>같은 기준으로 비교하도록 돕습니다.</p></div><div><strong>서비스</strong><Link href="/service/move-in-cleaning">입주청소</Link><Link href="/service/moving-cleaning">이사청소</Link><Link href="/service/studio-cleaning">원룸청소</Link></div><div><strong>도움말</strong><Link href="/cleaning">지역별 입주청소</Link><Link href="/guide">입주청소 가이드</Link><Link href="/estimate">무료 비교견적</Link></div><div><strong>안내</strong><Link href="/privacy">개인정보처리방침</Link><Link href="/terms">이용약관</Link></div></div><div className="shell copyright">© 올바른청소. 실제 청소 범위와 추가 비용은 업체별 현장 조건에 따라 달라질 수 있습니다.</div></footer>
+    <footer><div className="shell footerGrid"><div><Link href="/" className="brand brandLight"><span className="brandMark">✓</span>올바른청소</Link><p>가격뿐 아니라 청소 범위와 작업 조건까지<br/>같은 기준으로 비교하도록 돕습니다.</p></div><div><strong>서비스</strong><Link href="/service/move-in-cleaning">입주청소</Link><Link href="/service/moving-cleaning">이사청소</Link><Link href="/service/studio-cleaning">원룸청소</Link></div><div><strong>도움말</strong><Link href="/cleaning">지역별 입주청소</Link><Link href="/guide">입주청소 가이드</Link>{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL}>견적문의</a></div><div><strong>안내</strong><Link href="/privacy">개인정보처리방침</Link><Link href="/terms">이용약관</Link></div></div><div className="shell copyright">© 올바른청소. 실제 청소 범위와 추가 비용은 업체별 현장 조건에 따라 달라질 수 있습니다.</div></footer>
   </body></html>;
 }

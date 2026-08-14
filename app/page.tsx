@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HomeTools from "@/components/HomeTools";
 import PlanningTools from "@/components/PlanningTools";
+import { INQUIRY_URL } from "@/lib/inquiry";
 
 const services = [
   ["입주청소", "신축·공사 분진부터 수납장 안쪽까지", "/service/move-in-cleaning", "01"],
@@ -15,7 +16,7 @@ export default function Home() {
       <span className="eyebrow">전국 입주청소 비교 가이드</span>
       <h1>입주청소, 가격만 보지 말고<br/><em>청소 범위와 작업조건</em>까지 비교하세요.</h1>
       <p>필요한 청소 범위와 지역 조건을 먼저 확인하면<br/>업체마다 다른 견적을 같은 기준으로 비교할 수 있습니다.</p>
-      <div className="actions"><Link href="/estimate" className="button">무료 비교견적 받기 <span>→</span></Link><Link href="/cleaning" className="textLink">내 지역 입주청소 보기 <span>→</span></Link></div>
+      <div className="actions">{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button">견적문의 바로가기 <span>→</span></a><Link href="/cleaning" className="textLink">내 지역 입주청소 보기 <span>→</span></Link></div>
       <div className="trustRow"><span>✓ 고정가격 단정 없음</span><span>✓ 견적 조건 한눈에</span><span>✓ 무료 신청</span></div>
     </div><div className="heroVisual" aria-label="청소 견적 비교 예시"><div className="visualTop"><span>우리 집 청소 조건</span><b>비교 준비 완료</b></div><div className="condition"><i>84</i><span>㎡ 전용면적<br/><b>약 25.4평</b></span></div><div className="miniGrid"><span><small>공간</small>아파트</span><span><small>상태</small>신축</span><span><small>추가 확인</small>창틀·분진</span><span><small>견적 기준</small>범위 비교</span></div><div className="visualNote">같은 평수라도 창문, 수납공간, 오염도에 따라 달라집니다.</div></div></div></section>
 
@@ -31,6 +32,6 @@ export default function Home() {
 
     <section className="section shell"><div className="areaBox"><div><span className="eyebrow">LOCAL GUIDE</span><h2>전국 지역별 입주청소</h2><p>주거 형태와 작업 동선은 지역과 건물마다 다릅니다.<br/>내 지역에서 먼저 확인할 조건을 살펴보세요.</p></div><div className="areaLinks">{["서울", "경기", "부산", "대구", "인천", "대전", "광주", "울산"].map(x => <Link href="/cleaning" key={x}>{x}<span>→</span></Link>)}</div></div></section>
 
-    <section className="finalCta"><div className="shell"><span>조건이 달라지면 견적도 달라집니다</span><h2>내 청소 조건을 정리하고<br/>같은 기준으로 비교해 보세요.</h2><Link href="/estimate" className="button buttonWhite">무료 비교견적 시작하기 →</Link></div></section>
+    <section className="finalCta"><div className="shell"><span>조건이 달라지면 견적도 달라집니다</span><h2>내 청소 조건을 정리하고<br/>견적문의를 시작해 보세요.</h2>{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button buttonWhite">견적문의 시작하기 →</a></div></section>
   </>;
 }
