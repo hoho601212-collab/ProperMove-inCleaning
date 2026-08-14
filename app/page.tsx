@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HomeTools from "@/components/HomeTools";
+import PlanningTools from "@/components/PlanningTools";
 
 const services = [
   ["입주청소", "신축·공사 분진부터 수납장 안쪽까지", "/service/move-in-cleaning", "01"],
@@ -23,6 +24,8 @@ export default function Home() {
     <section className="softSection"><div className="shell splitIntro"><div><span className="eyebrow">SMART CHECK</span><h2>견적을 받기 전,<br/>우리 집 조건을 1분만에 정리하세요.</h2><p>면적과 청소 범위를 미리 정리하면 업체마다 다른 포함 항목을 더 정확히 비교할 수 있습니다.</p></div><div className="reasonList"><span><b>01</b><strong>면적</strong><small>㎡와 평 기준 확인</small></span><span><b>02</b><strong>공간</strong><small>방·욕실·베란다</small></span><span><b>03</b><strong>오염</strong><small>분진·곰팡이·기름때</small></span><span><b>04</b><strong>추가작업</strong><small>스티커·보호필름</small></span></div></div></section>
 
     <HomeTools />
+
+    <PlanningTools />
 
     <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING GUIDE</span><h2>청소 전후, 놓치기 쉬운 것들</h2></div><Link href="/guide" className="textLink">가이드 전체 보기 →</Link></div><div className="guideGrid"><Link href="/guide/cleaning-before-moving" className="guideCard mint"><span>청소 전</span><h3>가구가 들어오기 전<br/>무엇을 준비할까요?</h3><p>수도·전기·출입·주차·엘리베이터를 미리 확인하세요.</p><b>준비 체크리스트 →</b></Link><Link href="/guide/after-cleaning-inspection" className="guideCard navy"><span>청소 후</span><h3>눈높이 아래와 위까지<br/>현장에서 검수하세요.</h3><p>문틀 위, 창틀 모서리, 수납장 안쪽처럼 놓치기 쉬운 곳을 확인합니다.</p><b>검수 체크리스트 →</b></Link></div></section>
 
