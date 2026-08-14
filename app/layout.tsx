@@ -9,12 +9,27 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://proper-move-in-cleaning.vercel.app"),
   title: { default: "올바른청소 | 입주청소 비교견적과 준비 가이드", template: "%s | 올바른청소" },
   description: "입주청소 범위와 현장 조건을 확인하고 여러 업체의 견적을 같은 기준으로 비교하세요.",
+  applicationName: "올바른청소",
+  keywords: ["입주청소", "이사청소", "입주청소 업체", "입주청소 견적", "지역별 입주청소"],
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    siteName: "올바른청소",
+    title: "올바른청소 | 입주청소 비교견적과 준비 가이드",
+    description: "입주청소 범위와 현장 조건을 확인하고 업체 견적을 같은 기준으로 비교하세요.",
+    url: "/",
+  },
+  twitter: { card: "summary", title: "올바른청소", description: "입주청소 범위와 지역별 작업 조건을 확인하세요." },
+  robots: { index: true, follow: true },
 };
 
 const nav = [["청소 종류", "/service"], ["지역별 입주청소", "/cleaning"], ["청소 가이드", "/guide"]];
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://proper-move-in-cleaning.vercel.app";
+  const websiteSchema = { "@context": "https://schema.org", "@type": "WebSite", name: "올바른청소", url: base, inLanguage: "ko-KR", description: "입주청소 범위와 지역별 작업 조건을 확인하는 청소 준비 가이드" };
   return <html lang="ko"><body>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
     <header className="siteHeader"><div className="shell navWrap">
       <Link href="/" className="brand" aria-label="올바른청소 홈"><span className="brandMark">✓</span>올바른청소</Link>
       <nav aria-label="주요 메뉴">{nav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
