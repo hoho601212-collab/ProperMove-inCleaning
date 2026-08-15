@@ -9,9 +9,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const fixed = ["", "/service", "/cleaning", "/guide", "/privacy", "/terms"];
   const service = Object.keys(services).map((slug) => `/service/${slug}`);
   const guide = Object.keys(guides).map((slug) => `/guide/${slug}`);
+  const sidoPages = [...new Set(regionList.map((region) => `/cleaning/${region.slug.split("/")[0]}`))];
   const regionPages = regionList.map((region) => `/cleaning/${region.slug}`);
 
-  return [...fixed, ...service, ...guide, ...regionPages].map((path) => ({
+  return [...fixed, ...service, ...guide, ...sidoPages, ...regionPages].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
     changeFrequency: path ? "monthly" : "weekly",
