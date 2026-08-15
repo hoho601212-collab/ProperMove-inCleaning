@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: "입주청소 범위와 현장 조건을 확인하고 업체 견적을 같은 기준으로 비교하세요.",
     url: "/",
   },
-  twitter: { card: "summary", title: "올바른청소", description: "입주청소 범위와 지역별 작업 조건을 확인하세요." },
+  twitter: { card: "summary_large_image", title: "올바른청소", description: "입주청소 범위와 지역별 작업 조건을 확인하세요." },
   robots: { index: true, follow: true },
 };
 
