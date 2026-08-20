@@ -8,22 +8,40 @@ import { SITE_URL } from "@/lib/site";
 
 type Props = { params: Promise<{ sido: string; sigungu: string }> };
 
+const regionImageOverrides: Record<string, string> = {
+  "daejeon/daedeok": "/images/regions/daejeon/daedeok.webp",
+  "daejeon/doan": "/images/regions/daejeon/doan.webp",
+  "daejeon/dunsan": "/images/regions/daejeon/dunsan.webp",
+  "daejeon/gwanjeo": "/images/regions/daejeon/gwanjeo.webp",
+  "daejeon/jung": "/images/regions/daejeon/jung_daejeon.webp",
+  "daejeon/noeun": "/images/regions/daejeon/noeun.webp",
+  "daejeon/seo": "/images/regions/daejeon/seo_daejeon.webp",
+  "daejeon/yuseong": "/images/regions/daejeon/yuseong.webp",
+  "daejeon/dong": "/images/regions/daejeon/dong_daejeon.webp",
+};
+
+function getRegionImagePath(slug: string) {
+  return regionImageOverrides[slug] ?? `/images/regions/${slug}.webp`;
+}
+
 export function generateStaticParams() { return Object.keys(regions).map(key => { const [sido, sigungu] = key.split("/"); return { sido, sigungu }; }); }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`];
   if (!region) return {};
-  return { title: region.title, description: region.description, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: region.title, description: region.description, type: "article", images: [{ url: `/images/regions/${region.slug}.webp`, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } };
+  const imagePath = getRegionImagePath(region.slug);
+  return { title: region.title, description: region.description, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: region.title, description: region.description, type: "article", images: [{ url: imagePath, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } };
 }
 
 export default async function RegionPage({ params }: Props) {
   const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) notFound();
+  const imagePath = getRegionImagePath(region.slug);
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: region.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "홈", item: SITE_URL }, { "@type": "ListItem", position: 2, name: "지역별 입주청소", item: `${SITE_URL}/cleaning` }, { "@type": "ListItem", position: 3, name: region.city, item: `${SITE_URL}/cleaning/${sido}` }, { "@type": "ListItem", position: 4, name: `${region.city} ${region.district}`, item: `${SITE_URL}/cleaning/${region.slug}` }] };
   const articleSchema = { "@context": "https://schema.org", "@type": "Article", headline: region.title, description: region.description, inLanguage: "ko-KR", mainEntityOfPage: `${SITE_URL}/cleaning/${region.slug}`, about: [{ "@type": "Thing", name: `${region.district} 입주청소` }, { "@type": "Place", name: `${region.city} ${region.district}` }], author: { "@type": "Organization", name: "올바른청소", url: SITE_URL }, publisher: { "@type": "Organization", name: "올바른청소", url: SITE_URL } };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-    <section className="regionHero"><div className="shell"><nav className="breadcrumbs" aria-label="현재 위치"><Link href="/">홈</Link><span>›</span><Link href="/cleaning">지역별 입주청소</Link><span>›</span><Link href={`/cleaning/${sido}`}>{region.city}</Link><span>›</span><b>{region.district}</b></nav><div className="regionHeroGrid"><div><span className="eyebrow">{region.eyebrow}</span><h1>{region.title}</h1><p>{region.description}</p><div className="regionActions">{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a className="button" href={INQUIRY_URL}>견적문의 →</a><a className="textLink" href="#local-check">지역 체크포인트 보기 ↓</a></div></div><Image src={`/images/regions/${region.slug}.webp`} alt={`${region.city} ${region.district} 입주청소 지역 대표 이미지`} width={1200} height={800} sizes="(max-width: 850px) 100vw, 40vw" priority style={{ width: "100%", height: "auto", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 22, display: "block" }} /></div></div></section>
+    <section className="regionHero"><div className="shell"><nav className="breadcrumbs" aria-label="현재 위치"><Link href="/">홈</Link><span>›</span><Link href="/cleaning">지역별 입주청소</Link><span>›</span><Link href={`/cleaning/${sido}`}>{region.city}</Link><span>›</span><b>{region.district}</b></nav><div className="regionHeroGrid"><div><span className="eyebrow">{region.eyebrow}</span><h1>{region.title}</h1><p>{region.description}</p><div className="regionActions">{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a className="button" href={INQUIRY_URL}>견적문의 →</a><a className="textLink" href="#local-check">지역 체크포인트 보기 ↓</a></div></div><Image src={imagePath} alt={`${region.city} ${region.district} 입주청소 지역 대표 이미지`} width={1200} height={800} sizes="(max-width: 850px) 100vw, 40vw" priority style={{ width: "100%", height: "auto", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 22, display: "block" }} /></div></div></section>
     <nav className="areaJump" aria-label={`${region.district} 주요 생활권 바로가기`}><div className="shell"><b>{region.district} 주요 생활권</b><div>{region.zones.map((zone, index) => <a href={`#area-${index + 1}`} key={zone.name}>{zone.name}<span>↓</span></a>)}</div></div></nav>
     <section className="regionSection shell"><div className="regionIntro"><div><span className="eyebrow">LOCAL FINGERPRINT</span><h2>{region.district}에서는<br/>이 조건부터 보세요</h2></div><div>{region.intro.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div><div className="intentGrid">{region.searchNeeds.map((need, index) => <div key={need}><span>0{index + 1}</span><b>{need}</b></div>)}</div></section>
     <section className="regionSection regionSoft"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">MAIN LIVING AREAS</span><h2>{region.district} 주요 지역별 청소 포인트</h2></div><span className="sectionNote">동 이름보다 실제 건물 조건이 우선입니다</span></div><div className="zoneDetailGrid">{region.zones.map((zone, index) => <article id={`area-${index + 1}`} key={zone.name}><div className="zoneNumber">{String(index + 1).padStart(2, "0")}</div><div className="zoneDetailBody"><span className="zoneHousing">{zone.housing}</span><h3>{zone.name}</h3><p>{zone.cleaning}</p><div className="zoneQuote"><b>견적 문의에 함께 적기</b><ul>{region.checklist.slice(index % 3, index % 3 + 3).map(item => <li key={item}>{item}</li>)}</ul></div></div></article>)}</div></div></section>
