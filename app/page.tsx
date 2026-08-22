@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HomeTools from "@/components/HomeTools";
 import PlanningTools from "@/components/PlanningTools";
+import UpcomingApartments from "@/components/UpcomingApartments";
 import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
 import brandStyles from "./home-brand-marquee.module.css";
@@ -75,6 +76,8 @@ export default function Home() {
         </div>
       </div>
     </section>
+
+    <UpcomingApartments />
 
     <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING SERVICE</span><h2>우리 집에 필요한 청소부터 확인하세요</h2></div><Link href="/service" className="textLink">전체 청소 종류 보기 →</Link></div><div className="serviceGrid">{services.map(([title, desc, href, no]) => <Link href={href} className="serviceCard" key={title}><span className="serviceNo">{no}</span><h3>{title}</h3><p>{desc}</p><b>자세히 보기 →</b></Link>)}</div></section>
 
