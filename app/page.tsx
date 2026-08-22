@@ -4,6 +4,7 @@ import PlanningTools from "@/components/PlanningTools";
 import UpcomingApartments from "@/components/UpcomingApartments";
 import SpecialReasons from "@/components/SpecialReasons";
 import SpaceCleaningServices from "@/components/SpaceCleaningServices";
+import CustomerReviews from "@/components/CustomerReviews";
 import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
 import brandStyles from "./home-brand-marquee.module.css";
@@ -82,6 +83,8 @@ export default function Home() {
     <SpecialReasons />
 
     <SpaceCleaningServices />
+
+    <CustomerReviews />
 
     <UpcomingApartments />
 
