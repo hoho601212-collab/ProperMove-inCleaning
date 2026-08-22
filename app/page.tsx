@@ -2,6 +2,7 @@ import Link from "next/link";
 import HomeTools from "@/components/HomeTools";
 import PlanningTools from "@/components/PlanningTools";
 import UpcomingApartments from "@/components/UpcomingApartments";
+import SpecialReasons from "@/components/SpecialReasons";
 import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
 import brandStyles from "./home-brand-marquee.module.css";
@@ -76,6 +77,8 @@ export default function Home() {
         </div>
       </div>
     </section>
+
+    <SpecialReasons />
 
     <UpcomingApartments />
 
