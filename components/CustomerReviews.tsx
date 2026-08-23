@@ -1,7 +1,11 @@
 import styles from "./CustomerReviews.module.css";
 
 const reviewSlots = [
-  { no: "01", images: ["01", "02", "03"] },
+  {
+    no: "01",
+    images: ["01", "02", "03"],
+    content: "예약했던 시간보다 조금 일찍 도착해주셔서 전체 진행도 빠르고 깔끔하게 마무리되어서 만족합니다!",
+  },
   { no: "02", images: ["01", "02", "03"] },
   { no: "03", images: ["01", "02", "03"] },
   { no: "04", images: ["01", "02", "03"] },
@@ -35,7 +39,9 @@ export default function CustomerReviews() {
                 <small>이용 확인</small>
               </div>
               <p className={styles.placeholder}>
-                고객이 작성한 후기 원문을 등록하면 이 영역에 표시됩니다. 임의로 작성한 후기는 사용하지 않습니다.
+                {"content" in review
+                  ? review.content
+                  : "고객이 작성한 후기 원문을 등록하면 이 영역에 표시됩니다. 임의로 작성한 후기는 사용하지 않습니다."}
               </p>
               <div className={styles.photos} aria-label={`후기 ${review.no} 작업 사진 업로드 위치`}>
                 {review.images.map((image) => (
