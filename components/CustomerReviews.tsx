@@ -4,6 +4,9 @@ const reviewSlots = [
   {
     no: "01",
     images: ["01", "02", "03"],
+    title: "실제 고객 후기",
+    meta: "임** · 경기도 · 이사청소 · 2026년 7월",
+    icon: "😊",
     content: "예약했던 시간보다 조금 일찍 도착해주셔서 전체 진행도 빠르고 깔끔하게 마무리되어서 만족합니다!",
   },
   { no: "02", images: ["01", "02", "03"] },
@@ -31,10 +34,12 @@ export default function CustomerReviews() {
           {reviewSlots.map((review) => (
             <article className={styles.card} key={review.no}>
               <div className={styles.cardTop}>
-                <div className={styles.avatar} aria-hidden="true">✓</div>
+                <div className={styles.avatar} aria-hidden="true">
+                  {"icon" in review ? review.icon : "✓"}
+                </div>
                 <div>
-                  <strong>실제 고객 후기 등록 위치</strong>
-                  <span>고객명 · 작업 지역 · 청소 종류 · 작업일</span>
+                  <strong>{"title" in review ? review.title : "실제 고객 후기 등록 위치"}</strong>
+                  <span>{"meta" in review ? review.meta : "고객명 · 작업 지역 · 청소 종류 · 작업일"}</span>
                 </div>
                 <small>이용 확인</small>
               </div>
