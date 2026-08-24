@@ -23,8 +23,8 @@ const regionImageOverrides: Record<string, string> = {
   "daejeon/dong": "/images/regions/daejeon/dong_daejeon.webp",
 };
 
-// 2026년 서울 입주 예정 단지 중 지역별 대표 단지(확인 가능한 단지 중 세대수 우선)를 메타 설명에 반영합니다.
-// 입주 일정은 변동될 수 있으므로 확인되지 않은 지역은 임의의 단지명을 넣지 않고 기존 설명을 유지합니다.
+// 지역별 대표 아파트 검색 키워드입니다. 2026년 입주 예정 대단지가 확인되는 지역을 우선하고,
+// 그렇지 않은 곳은 지역을 대표하는 대단지 위주로 사용합니다. 확신하기 어려운 지역은 기존 설명을 유지합니다.
 const representativeApartmentKeywords: Record<string, string> = {
   "seoul/gangnam": "래미안 레벤투스 입주청소",
   "seoul/songpa": "잠실르엘 입주청소",
@@ -35,7 +35,7 @@ const representativeApartmentKeywords: Record<string, string> = {
   "seoul/yeongdeungpo": "영등포자이 디그니티 입주청소",
   "seoul/mapo": "광흥창역 입주청소",
   "seoul/gangdong": "e편한세상 강동 프레스티지원 입주청소",
-  "seoul/dongjak": "상도동 힐스테이트 장승배기역 입주청소",
+  "seoul/dongjak": "힐스테이트 장승배기역 입주청소",
   "seoul/guro": "개봉 루브루 입주청소",
   "seoul/dobong": "도봉 금호어울림 리버파크 입주청소",
   "seoul/gangbuk": "엘리프 미아역 2단지 입주청소",
@@ -43,6 +43,70 @@ const representativeApartmentKeywords: Record<string, string> = {
   "seoul/seongbuk": "보문 센트럴 아이파크 입주청소",
   "seoul/seodaemun": "경희궁 유보라 입주청소",
   "seoul/yangcheon": "신정282 입주청소",
+
+  "busan/haeundae": "해운대 엘시티 더샵 입주청소",
+  "busan/suyeong": "남천 삼익비치 입주청소",
+  "busan/gangseo": "에코델타시티 입주청소",
+  "busan/saha": "다대 롯데캐슬 몰운대 입주청소",
+  "busan/buk": "화명 롯데캐슬 카이저 입주청소",
+  "busan/dongnae": "사직 쌍용예가 입주청소",
+  "busan/yeonje": "거제 롯데캐슬 피렌체 입주청소",
+  "busan/geumjeong": "장전 래미안 입주청소",
+  "busan/nam": "LG메트로시티 입주청소",
+
+  "daegu/suseong": "수성 범어W 입주청소",
+  "daegu/dalseo": "월배 아이파크 입주청소",
+  "daegu/buk": "대구역 센트럴자이 입주청소",
+  "daegu/dong": "율하 롯데캐슬 TOP CLASS 입주청소",
+  "daegu/dalseong": "대실역 e편한세상 입주청소",
+
+  "incheon/yeonsu": "송도 더샵 퍼스트월드 입주청소",
+
+  "gyeonggi/suwon": "매교역 푸르지오 SK VIEW 입주청소",
+  "gyeonggi/seongnam": "산성역 포레스티아 입주청소",
+  "gyeonggi/yongin": "성복역 롯데캐슬 골드타운 입주청소",
+  "gyeonggi/goyang": "일산 두산위브더제니스 입주청소",
+
+  "daejeon/yuseong": "도안신도시 트리풀시티 입주청소",
+  "daejeon/dunsan": "둔산 크로바아파트 입주청소",
+  "daejeon/doan": "도안 아이파크 입주청소",
+  "daejeon/gwanjeo": "관저 더샵 입주청소",
+  "daejeon/noeun": "노은 한화꿈에그린 입주청소",
+
+  "gwangju/gwangsan": "수완 대방노블랜드 입주청소",
+  "gwangju/suwan": "수완 대방노블랜드 입주청소",
+  "gwangju/cheomdan": "첨단2지구 호반베르디움 입주청소",
+  "gwangju/bongseon": "봉선 제일풍경채 엘리트파크 입주청소",
+  "gwangju/nam": "봉선 제일풍경채 엘리트파크 입주청소",
+
+  "ulsan/nam": "문수로 아이파크 입주청소",
+  "ulsan/samsan": "삼산 현대아파트 입주청소",
+  "ulsan/mugeo": "무거 위브자이 입주청소",
+  "ulsan/buk": "송정 한라비발디 캠퍼스 입주청소",
+  "ulsan/songjeong": "송정 한라비발디 캠퍼스 입주청소",
+
+  "gyeongnam/changwon": "창원 중동 유니시티 입주청소",
+  "gyeongnam/gimhae": "김해 센텀 두산위브더제니스 입주청소",
+  "gyeongnam/yangsan": "양산 대방노블랜드 입주청소",
+  "gyeongnam/jinju": "진주 혁신도시 중흥S-클래스 입주청소",
+  "gyeongnam/geoje": "거제 아이파크 입주청소",
+
+  "chungbuk/cheongju": "청주 지웰시티 입주청소",
+  "chungbuk/chungju": "충주 호암 힐데스하임 입주청소",
+  "chungbuk/jincheon": "충북혁신도시 센텀클래스 입주청소",
+
+  "gyeongbuk/pohang": "포항자이 입주청소",
+  "gyeongbuk/gumi": "구미 확장단지 골드클래스 입주청소",
+  "gyeongbuk/gyeongsan": "펜타힐즈 더샵 입주청소",
+  "gyeongbuk/gyeongju": "경주 현곡 푸르지오 입주청소",
+
+  "chungnam/cheonan": "천안 불당 지웰시티 푸르지오 입주청소",
+  "chungnam/asan": "아산 탕정 호반써밋 입주청소",
+  "chungnam/dangjin": "당진 수청 한라비발디 캠퍼스 입주청소",
+
+  "jeonbuk/jeonju": "에코시티 더샵 입주청소",
+  "jeonbuk/iksan": "익산 자이 그랜드파크 입주청소",
+  "jeonbuk/gunsan": "디오션시티 더샵 입주청소",
 };
 
 function getMetaDescription(slug: string, description: string) {
