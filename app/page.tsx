@@ -1,13 +1,12 @@
 import Link from "next/link";
 import HomeTools from "@/components/HomeTools";
 import PlanningTools from "@/components/PlanningTools";
-import UpcomingApartments from "@/components/UpcomingApartments";
+import CleaningScope from "@/components/CleaningScope";
 import SpecialReasons from "@/components/SpecialReasons";
 import SpaceCleaningServices from "@/components/SpaceCleaningServices";
 import CustomerReviews from "@/components/CustomerReviews";
 import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
-import brandStyles from "./home-brand-marquee.module.css";
 
 export const metadata = { alternates: { canonical: "/" } };
 
@@ -29,38 +28,6 @@ const featuredRegions = [
   ["광주 서구", "/cleaning/gwangju/seo"],
 ];
 
-const apartmentBrands = [
-  ["래미안", "RAEMIAN", "raemian"],
-  ["푸르지오", "PRUGIO", "prugio"],
-  ["e편한세상", "e-PYEONHAN", "epyeon"],
-  ["자이", "Xi", "xi"],
-  ["더샵", "THE SHARP", "thesharp"],
-  ["힐스테이트", "HILLSTATE", "hillstate"],
-  ["롯데캐슬", "LOTTE CASTLE", "lotte"],
-  ["아이파크", "IPARK", "ipark"],
-  ["포레나", "FORENA", "forena"],
-  ["SK뷰", "SK VIEW", "skview"],
-  ["두산위브", "We've", "weve"],
-  ["트리마제", "TRIMAGE", "trimage"],
-  ["아크로", "ACRO", "acro"],
-  ["디에이치", "THE H", "theh"],
-  ["엘크루", "ELCRU", "elcru"],
-  ["센트레빌", "CENTREVILLE", "centreville"],
-  ["써밋", "SUMMIT", "summit"],
-  ["우미린", "Lynn", "lynn"],
-  ["금호어울림", "EOULLIM", "eoullim"],
-  ["데시앙", "DESIAN", "desian"],
-] as const;
-
-function BrandTrack() {
-  return <div className={brandStyles.track} aria-hidden="true">
-    {apartmentBrands.map(([ko, en, tone]) => <div className={`${brandStyles.brand} ${brandStyles[tone]}`} key={`${ko}-${en}`}>
-      <span className={brandStyles.mark}>{en.slice(0, 1)}</span>
-      <span className={brandStyles.word}><b>{ko}</b><small>{en}</small></span>
-    </div>)}
-  </div>;
-}
-
 export default function Home() {
   return <>
     <section className="hero"><div className="shell heroGrid"><div>
@@ -71,22 +38,13 @@ export default function Home() {
       <div className="trustRow"><span>✓ 고정가격 단정 없음</span><span>✓ 견적 조건 한눈에</span><span>✓ 무료 신청</span></div>
     </div><div className="heroVisual" aria-label="청소 견적 비교 예시"><div className="visualTop"><span>우리 집 청소 조건</span><b>비교 준비 완료</b></div><div className="condition"><i>84</i><span>㎡ 전용면적<br/><b>약 25.4평</b></span></div><div className="miniGrid"><span><small>공간</small>아파트</span><span><small>상태</small>신축</span><span><small>추가 확인</small>창틀·분진</span><span><small>견적 기준</small>범위 비교</span></div><div className="visualNote">같은 평수라도 창문, 수납공간, 오염도에 따라 달라집니다.</div></div></div></section>
 
-    <section className={brandStyles.marqueeSection} aria-label="국내 대표 아파트 브랜드">
-      <div className={`shell ${brandStyles.marqueeShell}`}>
-        <div className={brandStyles.marquee}>
-          <BrandTrack />
-          <BrandTrack />
-        </div>
-      </div>
-    </section>
-
     <SpecialReasons />
 
     <SpaceCleaningServices />
 
     <CustomerReviews />
 
-    <UpcomingApartments />
+    <CleaningScope />
 
     <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING SERVICE</span><h2>우리 집에 필요한 청소부터 확인하세요</h2></div><Link href="/service" className="textLink">전체 청소 종류 보기 →</Link></div><div className="serviceGrid">{services.map(([title, desc, href, no]) => <Link href={href} className="serviceCard" key={title}><span className="serviceNo">{no}</span><h3>{title}</h3><p>{desc}</p><b>자세히 보기 →</b></Link>)}</div></section>
 
