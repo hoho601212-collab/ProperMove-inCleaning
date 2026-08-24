@@ -6,8 +6,10 @@ import CleaningScope from "@/components/CleaningScope";
 import SpecialReasons from "@/components/SpecialReasons";
 import SpaceCleaningServices from "@/components/SpaceCleaningServices";
 import CustomerReviews from "@/components/CustomerReviews";
+import UpcomingApartments from "@/components/UpcomingApartments";
 import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
+import brandStyles from "./home-brand-marquee.module.css";
 
 export const metadata = { alternates: { canonical: "/" } };
 
@@ -29,6 +31,25 @@ const featuredRegions = [
   ["광주 서구", "/cleaning/gwangju/seo"],
 ];
 
+const apartmentBrands = [
+  ["래미안", "RAEMIAN", "raemian"], ["푸르지오", "PRUGIO", "prugio"], ["e편한세상", "e-PYEONHAN", "epyeon"],
+  ["자이", "Xi", "xi"], ["더샵", "THE SHARP", "thesharp"], ["힐스테이트", "HILLSTATE", "hillstate"],
+  ["롯데캐슬", "LOTTE CASTLE", "lotte"], ["아이파크", "IPARK", "ipark"], ["포레나", "FORENA", "forena"],
+  ["SK뷰", "SK VIEW", "skview"], ["두산위브", "We've", "weve"], ["트리마제", "TRIMAGE", "trimage"],
+  ["아크로", "ACRO", "acro"], ["디에이치", "THE H", "theh"], ["엘크루", "ELCRU", "elcru"],
+  ["센트레빌", "CENTREVILLE", "centreville"], ["써밋", "SUMMIT", "summit"], ["우미린", "Lynn", "lynn"],
+  ["금호어울림", "EOULLIM", "eoullim"], ["데시앙", "DESIAN", "desian"],
+] as const;
+
+function BrandTrack() {
+  return <div className={brandStyles.track} aria-hidden="true">
+    {apartmentBrands.map(([ko, en, tone]) => <div className={`${brandStyles.brand} ${brandStyles[tone]}`} key={`${ko}-${en}`}>
+      <span className={brandStyles.mark}>{en.slice(0, 1)}</span>
+      <span className={brandStyles.word}><b>{ko}</b><small>{en}</small></span>
+    </div>)}
+  </div>;
+}
+
 export default function Home() {
   return <>
     <section className="hero"><div className="shell heroGrid"><div>
@@ -38,6 +59,14 @@ export default function Home() {
       <div className="actions">{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button">견적문의 바로가기 <span>→</span></a><Link href="/cleaning" className="textLink">내 지역 입주청소 보기 <span>→</span></Link></div>
       <div className="trustRow"><span>✓ 고정가격 단정 없음</span><span>✓ 견적 조건 한눈에</span><span>✓ 무료 신청</span></div>
     </div><div aria-label="올바른청소 입주청소 현장 대표 이미지" style={{width:"100%",overflow:"hidden",borderRadius:24,background:"#fff",boxShadow:"0 28px 70px rgba(29,83,99,.15)"}}><Image src="/images/home/main-cleaning.webp" alt="빈 신축 아파트에서 올바른청소 전문팀이 입주청소를 진행하는 모습" width={1536} height={1024} sizes="(max-width: 850px) 100vw, 42vw" priority style={{width:"100%",height:"auto",aspectRatio:"3 / 2",objectFit:"cover",display:"block"}} /></div></div></section>
+
+    <section className={brandStyles.marqueeSection} aria-label="국내 대표 아파트 브랜드">
+      <div className={`shell ${brandStyles.marqueeShell}`}>
+        <div className={brandStyles.marquee}><BrandTrack /><BrandTrack /></div>
+      </div>
+    </section>
+
+    <UpcomingApartments />
 
     <SpecialReasons />
 
