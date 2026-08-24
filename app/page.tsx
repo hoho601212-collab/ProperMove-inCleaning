@@ -66,8 +66,6 @@ export default function Home() {
       </div>
     </section>
 
-    <UpcomingApartments />
-
     <SpecialReasons />
 
     <SpaceCleaningServices />
@@ -87,6 +85,8 @@ export default function Home() {
     <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING GUIDE</span><h2>청소 전후, 놓치기 쉬운 것들</h2></div><Link href="/guide" className="textLink">가이드 전체 보기 →</Link></div><div className="guideGrid"><Link href="/guide/cleaning-before-moving" className="guideCard mint"><span>청소 전</span><h3>가구가 들어오기 전<br/>무엇을 준비할까요?</h3><p>수도·전기·출입·주차·엘리베이터를 미리 확인하세요.</p><b>준비 체크리스트 →</b></Link><Link href="/guide/after-cleaning-inspection" className="guideCard navy"><span>청소 후</span><h3>눈높이 아래와 위까지<br/>현장에서 검수하세요.</h3><p>문틀 위, 창틀 모서리, 수납장 안쪽처럼 놓치기 쉬운 곳을 확인합니다.</p><b>검수 체크리스트 →</b></Link></div></section>
 
     <section className="section shell"><div className="areaBox"><div><span className="eyebrow">LOCAL GUIDE</span><h2>전국 지역별 입주청소</h2><p>주거 형태와 작업 동선은 지역과 건물마다 다릅니다.<br/>내 지역에서 먼저 확인할 조건을 살펴보세요.</p><Link href="/cleaning" className="textLink">{regionList.length}개 지역 전체 보기 →</Link></div><div className="areaLinks">{featuredRegions.map(([label, href]) => <Link href={href} key={href}>{label}<span>→</span></Link>)}</div></div></section>
+
+    <UpcomingApartments />
 
     <section className="finalCta"><div className="shell"><span>조건이 달라지면 견적도 달라집니다</span><h2>내 청소 조건을 정리하고<br/>견적문의를 시작해 보세요.</h2>{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button buttonWhite">견적문의 시작하기 →</a></div></section>
   </>;
