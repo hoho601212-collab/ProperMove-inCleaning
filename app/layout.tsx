@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   description: "입주청소 범위와 현장 조건을 확인하고 여러 업체의 견적을 같은 기준으로 비교하세요.",
   applicationName: "올바른청소",
   keywords: ["입주청소", "이사청소", "입주청소 업체", "입주청소 견적", "지역별 입주청소"],
+  verification: { other: { "naver-site-verification": "d3938d9a7aa034c2f33c2e9b6d2f811d8a280846" } },
   icons: { icon: "/favicon.ico", shortcut: "/favicon.ico" },
   openGraph: {
     type: "website",
