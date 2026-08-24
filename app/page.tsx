@@ -37,7 +37,7 @@ export default function Home() {
       <p>필요한 청소 범위와 지역 조건을 먼저 확인하면<br/>업체마다 다른 견적을 같은 기준으로 비교할 수 있습니다.</p>
       <div className="actions">{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button">견적문의 바로가기 <span>→</span></a><Link href="/cleaning" className="textLink">내 지역 입주청소 보기 <span>→</span></Link></div>
       <div className="trustRow"><span>✓ 고정가격 단정 없음</span><span>✓ 견적 조건 한눈에</span><span>✓ 무료 신청</span></div>
-    </div><div className="heroMainImage"><Image src="/images/home/main-cleaning.webp" alt="올바른청소 입주청소 전문팀 현장 작업 이미지" width={1536} height={1024} sizes="(max-width: 850px) 100vw, 42vw" priority /></div></div></section>
+    </div><div aria-label="올바른청소 입주청소 현장 대표 이미지" style={{width:"100%",overflow:"hidden",borderRadius:24,background:"#fff",boxShadow:"0 28px 70px rgba(29,83,99,.15)"}}><Image src="/images/home/main-cleaning.webp" alt="빈 신축 아파트에서 올바른청소 전문팀이 입주청소를 진행하는 모습" width={1536} height={1024} sizes="(max-width: 850px) 100vw, 42vw" priority style={{width:"100%",height:"auto",aspectRatio:"3 / 2",objectFit:"cover",display:"block"}} /></div></div></section>
 
     <SpecialReasons />
 
