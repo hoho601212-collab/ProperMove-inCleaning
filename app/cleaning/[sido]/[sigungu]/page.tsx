@@ -23,6 +23,33 @@ const regionImageOverrides: Record<string, string> = {
   "daejeon/dong": "/images/regions/daejeon/dong_daejeon.webp",
 };
 
+// 2026년 서울 입주 예정 단지 중 지역별 대표 단지(확인 가능한 단지 중 세대수 우선)를 메타 설명에 반영합니다.
+// 입주 일정은 변동될 수 있으므로 확인되지 않은 지역은 임의의 단지명을 넣지 않고 기존 설명을 유지합니다.
+const representativeApartmentKeywords: Record<string, string> = {
+  "seoul/gangnam": "래미안 레벤투스 입주청소",
+  "seoul/songpa": "잠실르엘 입주청소",
+  "seoul/seocho": "디에이치 방배 입주청소",
+  "seoul/eunpyeong": "힐스테이트 메디알레 입주청소",
+  "seoul/gangseo": "마곡 10-2BL 입주청소",
+  "seoul/dongdaemun": "청량리 롯데캐슬 하이루체 입주청소",
+  "seoul/yeongdeungpo": "영등포자이 디그니티 입주청소",
+  "seoul/mapo": "광흥창역 입주청소",
+  "seoul/gangdong": "e편한세상 강동 프레스티지원 입주청소",
+  "seoul/dongjak": "상도동 힐스테이트 장승배기역 입주청소",
+  "seoul/guro": "개봉 루브루 입주청소",
+  "seoul/dobong": "도봉 금호어울림 리버파크 입주청소",
+  "seoul/gangbuk": "엘리프 미아역 2단지 입주청소",
+  "seoul/gwangjin": "강변역 센트럴 아이파크 입주청소",
+  "seoul/seongbuk": "보문 센트럴 아이파크 입주청소",
+  "seoul/seodaemun": "경희궁 유보라 입주청소",
+  "seoul/yangcheon": "신정282 입주청소",
+};
+
+function getMetaDescription(slug: string, description: string) {
+  const apartmentKeyword = representativeApartmentKeywords[slug];
+  return apartmentKeyword ? `${description} ${apartmentKeyword}` : description;
+}
+
 function getRegionImagePath(slug: string) {
   return regionImageOverrides[slug] ?? `/images/regions/${slug}.webp`;
 }
@@ -33,15 +60,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`];
   if (!region) return {};
   const imagePath = getRegionImagePath(region.slug);
-  return { title: region.title, description: region.description, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: region.title, description: region.description, type: "article", images: [{ url: imagePath, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } };
+  const metaDescription = getMetaDescription(region.slug, region.description);
+  return { title: region.title, description: metaDescription, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: region.title, description: metaDescription, type: "article", images: [{ url: imagePath, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } };
 }
 
 export default async function RegionPage({ params }: Props) {
   const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) notFound();
   const imagePath = getRegionImagePath(region.slug);
+  const metaDescription = getMetaDescription(region.slug, region.description);
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: region.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "홈", item: SITE_URL }, { "@type": "ListItem", position: 2, name: "지역별 입주청소", item: `${SITE_URL}/cleaning` }, { "@type": "ListItem", position: 3, name: region.city, item: `${SITE_URL}/cleaning/${sido}` }, { "@type": "ListItem", position: 4, name: `${region.city} ${region.district}`, item: `${SITE_URL}/cleaning/${region.slug}` }] };
-  const articleSchema = { "@context": "https://schema.org", "@type": "Article", headline: region.title, description: region.description, inLanguage: "ko-KR", mainEntityOfPage: `${SITE_URL}/cleaning/${region.slug}`, about: [{ "@type": "Thing", name: `${region.district} 입주청소` }, { "@type": "Place", name: `${region.city} ${region.district}` }], author: { "@type": "Organization", name: "올바른청소", url: SITE_URL }, publisher: { "@type": "Organization", name: "올바른청소", url: SITE_URL } };
+  const articleSchema = { "@context": "https://schema.org", "@type": "Article", headline: region.title, description: metaDescription, inLanguage: "ko-KR", mainEntityOfPage: `${SITE_URL}/cleaning/${region.slug}`, about: [{ "@type": "Thing", name: `${region.district} 입주청소` }, { "@type": "Place", name: `${region.city} ${region.district}` }], author: { "@type": "Organization", name: "올바른청소", url: SITE_URL }, publisher: { "@type": "Organization", name: "올바른청소", url: SITE_URL } };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
     <section className="regionHero"><div className="shell"><nav className="breadcrumbs" aria-label="현재 위치"><Link href="/">홈</Link><span>›</span><Link href="/cleaning">지역별 입주청소</Link><span>›</span><Link href={`/cleaning/${sido}`}>{region.city}</Link><span>›</span><b>{region.district}</b></nav><div className="regionHeroGrid"><div><span className="eyebrow">{region.eyebrow}</span><h1>{region.title}</h1><p>{region.description}</p><div className="regionActions"><a className="button" href={INQUIRY_URL}>견적문의 →</a><a className="textLink" href="#local-check">지역 체크포인트 보기 ↓</a></div></div><Image src={imagePath} alt={`${region.city} ${region.district} 입주청소 지역 대표 이미지`} width={1200} height={800} sizes="(max-width: 850px) 100vw, 40vw" priority style={{ width: "100%", height: "auto", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 22, display: "block" }} /></div></div></section>
