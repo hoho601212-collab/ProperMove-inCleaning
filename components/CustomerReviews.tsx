@@ -25,7 +25,14 @@ const reviewSlots = [
     icon: "😊",
     content: "신축 분진 때문에 걱정이 많았는데 창틀이랑 바닥까지 깨끗하게 정리해주셨어요 감사합니다 :)",
   },
-  { no: "04", images: ["01", "02", "03"] },
+  {
+    no: "04",
+    images: ["01", "02", "03"],
+    title: "실제 고객 후기",
+    meta: "최** · 부산 · 이사청소 · 2026년 5월",
+    icon: "😊",
+    content: "혼자 하기 힘들었던 베란다랑 욕실까지 세심하게 작업해주셔서 너무 만족스러웠어요!",
+  },
 ] as const;
 
 export default function CustomerReviews() {
