@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { regions } from "@/lib/regions";
 import { INQUIRY_URL } from "@/lib/inquiry";
 import { SITE_URL } from "@/lib/site";
+import SpecialReasons from "@/components/SpecialReasons";
+import SpaceCleaningServices from "@/components/SpaceCleaningServices";
 
 type Props = { params: Promise<{ sido: string; sigungu: string }> };
 
@@ -36,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RegionPage({ params }: Props) {
   const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) notFound();
   const imagePath = getRegionImagePath(region.slug);
+  const showGangnamServiceBlocks = sido === "seoul" && sigungu === "gangnam";
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: region.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "홈", item: SITE_URL }, { "@type": "ListItem", position: 2, name: "지역별 입주청소", item: `${SITE_URL}/cleaning` }, { "@type": "ListItem", position: 3, name: region.city, item: `${SITE_URL}/cleaning/${sido}` }, { "@type": "ListItem", position: 4, name: `${region.city} ${region.district}`, item: `${SITE_URL}/cleaning/${region.slug}` }] };
   const articleSchema = { "@context": "https://schema.org", "@type": "Article", headline: region.title, description: region.description, inLanguage: "ko-KR", mainEntityOfPage: `${SITE_URL}/cleaning/${region.slug}`, about: [{ "@type": "Thing", name: `${region.district} 입주청소` }, { "@type": "Place", name: `${region.city} ${region.district}` }], author: { "@type": "Organization", name: "올바른청소", url: SITE_URL }, publisher: { "@type": "Organization", name: "올바른청소", url: SITE_URL } };
@@ -45,6 +48,7 @@ export default async function RegionPage({ params }: Props) {
     <nav className="areaJump" aria-label={`${region.district} 주요 생활권 바로가기`}><div className="shell"><b>{region.district} 주요 생활권</b><div>{region.zones.map((zone, index) => <a href={`#area-${index + 1}`} key={zone.name}>{zone.name}<span>↓</span></a>)}</div></div></nav>
     <section className="regionSection shell"><div className="regionIntro"><div><span className="eyebrow">LOCAL FINGERPRINT</span><h2>{region.district}에서는<br/>이 조건부터 보세요</h2></div><div>{region.intro.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div><div className="intentGrid">{region.searchNeeds.map((need, index) => <div key={need}><span>0{index + 1}</span><b>{need}</b></div>)}</div></section>
     <section className="regionSection regionSoft"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">MAIN LIVING AREAS</span><h2>{region.district} 주요 지역별 청소 포인트</h2></div><span className="sectionNote">동 이름보다 실제 건물 조건이 우선입니다</span></div><div className="zoneDetailGrid">{region.zones.map((zone, index) => <article id={`area-${index + 1}`} key={zone.name}><div className="zoneNumber">{String(index + 1).padStart(2, "0")}</div><div className="zoneDetailBody"><span className="zoneHousing">{zone.housing}</span><h3>{zone.name}</h3><p>{zone.cleaning}</p><div className="zoneQuote"><b>견적 문의에 함께 적기</b><ul>{region.checklist.slice(index % 3, index % 3 + 3).map(item => <li key={item}>{item}</li>)}</ul></div></div></article>)}</div></div></section>
+    {showGangnamServiceBlocks && <><SpecialReasons /><SpaceCleaningServices /></>}
     <section className="regionSection shell"><div className="buildCompare"><article><span className="compareLabel new">신축·준신축</span><h2>공사 잔여물을 따로 확인</h2><ul>{region.newBuild.map(item => <li key={item}>{item}</li>)}</ul></article><article><span className="compareLabel old">기존·구축</span><h2>생활 오염과 접근 조건 확인</h2><ul>{region.oldBuild.map(item => <li key={item}>{item}</li>)}</ul></article></div><p className="infoNotice">신축 청소가 실내공기질 개선이나 의학적 효과를 보장하지는 않습니다. 청소, 환기, 실내공기질 측정은 서로 다른 영역입니다.</p></section>
     <section className="regionSection accessSection"><div className="shell accessGrid"><div><span className="eyebrow">ACCESS & PARKING</span><h2>작업 전 출입·주차 확인</h2><p>청소 품질뿐 아니라 작업자가 집까지 장비를 옮길 수 있는 조건도 예상 인원과 시간에 영향을 줄 수 있습니다.</p></div><ol>{region.access.map((item, index) => <li key={item}><b>{index + 1}</b><span>{item}</span></li>)}</ol></div></section>
     <section id="local-check" className="regionSection shell"><div className="sectionHead"><div><span className="eyebrow">LOCAL CHECKLIST</span><h2>{region.district} 입주청소 견적 체크</h2></div><Link href="/guide/move-in-cleaning-checklist" className="textLink">전체 준비 가이드 →</Link></div><div className="localChecklist">{region.checklist.map(item => <div key={item}><i>✓</i><span>{item}</span></div>)}</div></section>
