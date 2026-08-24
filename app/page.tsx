@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import HomeTools from "@/components/HomeTools";
 import PlanningTools from "@/components/PlanningTools";
@@ -36,7 +37,7 @@ export default function Home() {
       <p>필요한 청소 범위와 지역 조건을 먼저 확인하면<br/>업체마다 다른 견적을 같은 기준으로 비교할 수 있습니다.</p>
       <div className="actions">{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button">견적문의 바로가기 <span>→</span></a><Link href="/cleaning" className="textLink">내 지역 입주청소 보기 <span>→</span></Link></div>
       <div className="trustRow"><span>✓ 고정가격 단정 없음</span><span>✓ 견적 조건 한눈에</span><span>✓ 무료 신청</span></div>
-    </div><div className="heroVisual" aria-label="청소 견적 비교 예시"><div className="visualTop"><span>우리 집 청소 조건</span><b>비교 준비 완료</b></div><div className="condition"><i>84</i><span>㎡ 전용면적<br/><b>약 25.4평</b></span></div><div className="miniGrid"><span><small>공간</small>아파트</span><span><small>상태</small>신축</span><span><small>추가 확인</small>창틀·분진</span><span><small>견적 기준</small>범위 비교</span></div><div className="visualNote">같은 평수라도 창문, 수납공간, 오염도에 따라 달라집니다.</div></div></div></section>
+    </div><div className="heroMainImage"><Image src="/images/home/main-cleaning.webp" alt="올바른청소 입주청소 전문팀 현장 작업 이미지" width={1536} height={1024} sizes="(max-width: 850px) 100vw, 42vw" priority /></div></div></section>
 
     <SpecialReasons />
 
