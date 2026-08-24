@@ -32,6 +32,7 @@ const featuredRegions = [
 export default function Home() {
   return <>
     <section className="hero"><div className="shell heroGrid"><div>
+      <img className="heroBrandLogo" src="/images/logo.png" alt="올바른청소" />
       <span className="eyebrow">전국 입주청소 비교 가이드</span>
       <h1>입주청소, 가격만 보지 말고<br/><em>청소 범위와 작업조건</em>까지 비교하세요.</h1>
       <p>필요한 청소 범위와 지역 조건을 먼저 확인하면<br/>업체마다 다른 견적을 같은 기준으로 비교할 수 있습니다.</p>
