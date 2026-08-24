@@ -6,6 +6,7 @@ import "./globals.css";
 import "./tools.css";
 import "./regions.css";
 import "./branding.css";
+import "./apartments.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
