@@ -13,7 +13,7 @@ const regionImageOverrides: Record<string, string> = {
 };
 
 const representativeApartmentKeywords: Record<string, string> = {
-  "seoul/gangnam": "래미안 레벤투스 입주청소", "seoul/songpa": "잠실르엘 입주청소", "seoul/seocho": "디에이치 방배 입주청소", "seoul/eunpyeong": "힐스테이트 메디알레 입주청소", "seoul/gangseo": "마곡 10-2BL 입주청소", "seoul/dongdaemun": "청량리 롯데캐슬 하이루체 입주청소", "seoul/yeongdeungpo": "영등포자이 디그니티 입주청소", "seoul/gangdong": "e편한세상 강동 프레스티지원 입주청소", "seoul/dongjak": "힐스테이트 장승배기역 입주청소", "seoul/guro": "개봉 루브루 입주청소", "seoul/dobong": "도봉 금호어울림 리버파크 입주청소", "seoul/gangbuk": "엘리프 미아역 2단지 입주청소", "seoul/gwangjin": "강변역 센트럴 아이파크 입주청소", "seoul/seongbuk": "보문 센트럴 아이파크 입주청소", "seoul/seodaemun": "경희궁 유보라 입주청소",
+  "seoul/gangnam": "래미안 레벤투스 입주청소", "seoul/songpa": "잠실르엘 입주청소", "seoul/seocho": "디에이치 방배 입주청소", "seoul/eunpyeong": "힐스테이트 메디알레 입주청소", "seoul/dongdaemun": "청량리 롯데캐슬 하이루체 입주청소", "seoul/yeongdeungpo": "영등포자이 디그니티 입주청소", "seoul/gangdong": "e편한세상 강동 프레스티지원 입주청소", "seoul/dongjak": "힐스테이트 장승배기역 입주청소", "seoul/guro": "개봉 루브루 입주청소", "seoul/dobong": "도봉 금호어울림 리버파크 입주청소", "seoul/gangbuk": "엘리프 미아역 2단지 입주청소", "seoul/gwangjin": "강변역 센트럴 아이파크 입주청소", "seoul/seongbuk": "보문 센트럴 아이파크 입주청소", "seoul/seodaemun": "경희궁 유보라 입주청소",
   "busan/haeundae": "해운대 엘시티 더샵 입주청소", "busan/suyeong": "남천 삼익비치 입주청소", "busan/saha": "다대 롯데캐슬 몰운대 입주청소", "busan/buk": "화명 롯데캐슬 카이저 입주청소", "busan/dongnae": "사직 쌍용예가 입주청소", "busan/yeonje": "거제 롯데캐슬 피렌체 입주청소", "busan/geumjeong": "장전 래미안 입주청소", "busan/nam": "LG메트로시티 입주청소",
   "daegu/suseong": "수성 범어W 입주청소", "daegu/dalseo": "월배 아이파크 입주청소", "daegu/buk": "대구역 센트럴자이 입주청소", "daegu/dong": "율하 롯데캐슬 TOP CLASS 입주청소", "daegu/dalseong": "대실역 e편한세상 입주청소", "incheon/yeonsu": "송도 더샵 퍼스트월드 입주청소",
   "gyeonggi/suwon": "매교역 푸르지오 SK VIEW 입주청소", "gyeonggi/seongnam": "산성역 포레스티아 입주청소", "gyeonggi/yongin": "성복역 롯데캐슬 골드타운 입주청소", "gyeonggi/goyang": "일산 두산위브더제니스 입주청소",
@@ -36,8 +36,8 @@ const seoTitleSuffixes: Record<string, string> = {
   "daejeon/yuseong": "도안·노은 아파트 청소 범위와 견적 비교", "daejeon/seo": "둔산·도안 주거권 청소 조건 확인", "daejeon/dong": "아파트·구축주거 청소 범위와 동선 체크", "daejeon/jung": "도심 아파트·오피스텔 청소 조건 비교", "daejeon/daedeok": "아파트·산업주거권 청소 범위와 접근 확인", "daejeon/gwanjeo": "대단지 아파트 입주 전 청소 준비", "daejeon/noeun": "아파트·신축주거 창호와 수납 청소", "daejeon/dunsan": "도심 대단지 아파트 청소 범위와 검수", "daejeon/doan": "신축 아파트 공사분진·수납 청소 체크",
   "gwangju/seo": "상무·금호 아파트 청소 범위와 견적 비교", "gwangju/buk": "아파트·신축주거 청소 조건과 검수", "gwangju/gwangsan": "신도시·대단지 아파트 청소 범위 확인", "gwangju/nam": "아파트·저층주거 청소 조건과 창호 체크", "gwangju/dong": "도심 주거·아파트 청소 범위와 접근 확인", "gwangju/cheomdan": "신축 대단지 아파트 분진 청소 준비", "gwangju/suwan": "대단지 아파트 창호와 수납 청소 비교", "gwangju/bongseon": "아파트·고급주거 청소 범위와 검수",
   "ulsan/nam": "삼산·무거 아파트 청소 범위와 견적 비교", "ulsan/buk": "송정·매곡 신축 아파트 청소 조건 확인", "ulsan/ulju": "신축·저층주거 청소 범위와 접근 체크", "ulsan/dong": "아파트·구축주거 창호와 오염 청소", "ulsan/jung": "아파트·도심주거 청소 범위와 동선 확인", "ulsan/samsan": "주상복합·아파트 청소 범위와 출입 체크", "ulsan/mugeo": "아파트·원룸 주거형태별 청소 준비", "ulsan/songjeong": "신축 대단지 아파트 분진·수납 청소",
-  "sejong/jochiwon": "아파트·기존주거 청소 범위와 접근 확인", "sejong/areum": "대단지 아파트 창호와 수납 청소 체크", "sejong/hansol": "첫마을 아파트 청소 범위와 검수", "sejong/boram": "신축·준신축 아파트 청소 조건 확인", "sejong/jongchon": "대단지 공동주택 청소 범위와 동선 체크", "sejong/dajeong": "신축 아파트 분진·수납 청소 준비", "sejong/sodam": "아파트·주상복합 청소 범위와 출입 확인",
-  "chungbuk/chungju": "아파트·신축주거 청소 범위와 견적 비교", "chungbuk/cheongju": "대단지 아파트 청소 조건과 검수 체크", "chungbuk/jecheon": "아파트·저층주거 청소 범위와 접근 확인", "chungbuk/jincheon": "혁신도시·신축 아파트 분진 청소 준비",
+  "sejong/sejong": "공동주택 중심 생활권 청소 범위와 준비", "sejong/jochiwon": "아파트·기존주거 청소 범위와 접근 확인", "sejong/areum": "대단지 아파트 창호와 수납 청소 체크", "sejong/hansol": "첫마을 아파트 청소 범위와 검수", "sejong/boram": "신축·준신축 아파트 청소 조건 확인", "sejong/jongchon": "대단지 공동주택 청소 범위와 동선 체크", "sejong/dajeong": "신축 아파트 분진·수납 청소 준비", "sejong/sodam": "아파트·주상복합 청소 범위와 출입 확인",
+  "chungbuk/chungju": "아파트·신축주거 청소 범위와 견적 비교", "chungbuk/cheongju": "대단지 아파트 청소 조건과 검수 체크", "chungbuk/jecheon": "아파트·저층주거 청소 범위와 접근 확인", "chungbuk/jincheon": "혁신도시·신축 아파트 분진 청소 준비", "chungbuk/eumseong": "혁신도시·공동주택 청소 범위와 접근 확인", "chungbuk/okcheon": "아파트·저층주거 청소 범위와 현장 조건", "chungbuk/jeungpyeong": "아파트·신축주거 청소 범위와 검수", "chungbuk/yeongdong": "아파트·저층주거 청소 범위와 접근 조건",
   "chungnam/cheonan": "불당·신축 아파트 청소 범위와 견적 비교", "chungnam/asan": "탕정·신축 아파트 분진과 수납 청소", "chungnam/dangjin": "신축·대단지 아파트 청소 조건 확인", "chungnam/seosan": "아파트·저층주거 청소 범위와 접근 체크", "chungnam/gongju": "아파트·기존주거 청소 범위와 동선 확인", "chungnam/hongseong": "내포·신축 아파트 청소 범위와 검수", "chungnam/nonsan": "아파트·저층주거 청소 조건과 견적 확인", "chungnam/boryeong": "아파트·해안생활권 청소 범위와 창호 체크",
   "jeonbuk/jeonju": "에코시티·대단지 아파트 청소 범위 비교", "jeonbuk/iksan": "신축·구축 아파트 청소 조건과 검수", "jeonbuk/gunsan": "신도시·아파트 창호와 수납 청소 확인", "jeonbuk/jeongeup": "아파트·저층주거 청소 범위와 접근 체크", "jeonbuk/wanju": "혁신도시·공동주택 청소 범위와 검수", "jeonbuk/namwon": "아파트·저층주거 청소 조건과 동선 확인", "jeonbuk/gimje": "아파트·공동주택 청소 범위와 견적 확인", "jeonbuk/buan": "아파트·해안생활권 청소 범위와 접근 체크",
   "gyeongnam/changwon": "대단지 아파트 청소 범위와 견적 비교", "gyeongnam/gimhae": "신도시·아파트 청소 조건과 검수", "gyeongnam/yangsan": "신축·대단지 아파트 분진 청소 준비", "gyeongnam/jinju": "혁신도시·아파트 창호와 수납 청소", "gyeongnam/geoje": "아파트·해안주거 창호와 오염 청소 체크", "gyeongnam/tongyeong": "해안주거·아파트 청소 범위와 접근 확인", "gyeongnam/sacheon": "신축·기존주거 청소 범위와 동선 체크", "gyeongnam/miryang": "아파트·저층주거 청소 조건과 견적 확인", "gyeongnam/geochang": "아파트·읍내주거 청소 범위와 접근 체크",
@@ -60,9 +60,10 @@ function getRegionImagePath(slug: string) { return regionImageOverrides[slug] ??
 function getNearbyLinks(region: (typeof regions)[string]) {
   const overrideLinks = nearbyOverrides[region.slug];
   if (overrideLinks) return overrideLinks;
-  const regionalLinks = region.nearby.filter(item => /^\/cleaning\/[a-z-]+\/[a-z-]+$/.test(item.href));
+  const sido = region.slug.split("/")[0];
+  const regionalLinks = region.nearby.filter(item => /^\/cleaning\/[a-z-]+\/[a-z-]+$/.test(item.href) && item.href.startsWith(`/cleaning/${sido}/`));
   const sameSidoFallback = Object.values(regions)
-    .filter(candidate => candidate.slug !== region.slug && candidate.slug.split("/")[0] === region.slug.split("/")[0])
+    .filter(candidate => candidate.slug !== region.slug && candidate.slug.split("/")[0] === sido)
     .slice(0, 2)
     .map(candidate => ({ label: `${candidate.district} 입주청소`, href: `/cleaning/${candidate.slug}` }));
   const merged = [...regionalLinks, ...sameSidoFallback].filter((item, index, items) => items.findIndex(candidate => candidate.href === item.href) === index);
