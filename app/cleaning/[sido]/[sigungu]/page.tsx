@@ -36,35 +36,23 @@ const representativeApartmentKeywords: Record<string, string> = {
   "jeonbuk/jeonju": "에코시티 더샵 입주청소", "jeonbuk/iksan": "익산 자이 그랜드파크 입주청소", "jeonbuk/gunsan": "디오션시티 더샵 입주청소",
 };
 
-function getMetaDescription(slug: string, description: string) {
-  const apartmentKeyword = representativeApartmentKeywords[slug];
-  return apartmentKeyword ? `${description} ${apartmentKeyword}` : description;
-}
+const seoTitleSuffixes: Record<string, string> = {
+  "seoul/gangnam": "아파트·오피스텔 청소 범위와 견적 비교", "seoul/songpa": "대단지 아파트 입주 전 청소 체크", "seoul/mapo": "아파트·오피스텔 청소 조건 확인", "seoul/gwanak": "원룸·아파트 주거형태별 청소 준비", "seoul/yeongdeungpo": "신축 주거단지 청소 범위와 검수", "seoul/nowon": "대단지 아파트 청소 범위와 견적 체크", "seoul/seocho": "신축·고급주거 창호와 수납 청소 확인", "seoul/eunpyeong": "신축 아파트 분진·수납 청소 체크", "seoul/gangseo": "마곡·대단지 아파트 청소 조건 비교", "seoul/dongjak": "아파트·다세대 입주 전 청소 범위 확인", "seoul/seongdong": "아파트·주상복합 청소 조건과 동선 체크", "seoul/gwangjin": "아파트·오피스텔 창호와 수납 청소 비교", "seoul/jungnang": "신축·구축 주거별 청소 범위 확인", "seoul/jongno": "아파트·도심주거 입주 전 청소 준비", "seoul/yongsan": "주상복합·아파트 청소 범위와 출입 체크", "seoul/dobong": "아파트·저층주거 청소 조건과 견적 비교", "seoul/gangbuk": "신축·구축 아파트 청소 범위 체크", "seoul/dongdaemun": "신축 아파트·오피스텔 청소 준비", "seoul/guro": "아파트·오피스텔 입주 전 청소 범위 비교", "seoul/jung": "도심 아파트·주상복합 청소 조건 확인", "seoul/seodaemun": "신축·구축 아파트 청소 범위와 검수", "seoul/yangcheon": "목동 대단지 아파트 청소 준비와 체크", "seoul/seongbuk": "아파트·다세대 청소 범위와 현장 조건", "seoul/gangdong": "신축 대단지 아파트 분진·수납 청소", "seoul/geumcheon": "아파트·오피스텔 청소 범위와 견적 확인",
+  "busan/haeundae": "고층 아파트 창호·청소 범위 확인", "busan/busanjin": "도심 아파트·오피스텔 청소 범위 비교", "busan/dongnae": "아파트·구축주거 입주 전 청소 체크", "busan/suyeong": "해안권 아파트 창호·베란다 청소 체크", "busan/nam": "대단지·고층 아파트 청소 조건 확인", "busan/sasang": "아파트·저층주거 청소 동선과 범위 확인", "busan/buk": "대단지 아파트 청소 범위와 동선 확인", "busan/geumjeong": "아파트·저층주거 청소 범위와 접근 체크", "busan/yeonje": "아파트·주거밀집지역 청소 조건 비교", "busan/gangseo": "신도시 신축 아파트 분진 청소 준비", "busan/saha": "아파트·구축주거 창호와 오염 청소 비교", "busan/yeongdo": "경사지 주거·아파트 청소 접근조건 체크",
+};
 
-function getSeoTitle(region: { city: string; district: string; title: string }) {
-  const titleParts = region.title.split(/[｜|]/).map(part => part.trim()).filter(Boolean);
-  const uniqueSuffix = titleParts.length > 1 ? titleParts.slice(1).join(" · ") : "지역별 청소 범위와 견적 안내";
-  return `${region.city} ${region.district} 입주청소 | ${uniqueSuffix}`;
-}
-
+function getMetaDescription(slug: string, description: string) { const apartmentKeyword = representativeApartmentKeywords[slug]; return apartmentKeyword ? `${description} ${apartmentKeyword}` : description; }
+function getSeoTitle(region: { slug: string; city: string; district: string; title: string }) { const customSuffix = seoTitleSuffixes[region.slug]; if (customSuffix) return `${region.city} ${region.district} 입주청소 | ${customSuffix}`; const titleParts = region.title.split(/[｜|]/).map(part => part.trim()).filter(Boolean); const uniqueSuffix = titleParts.length > 1 ? titleParts.slice(1).join(" · ") : "지역별 청소 범위와 견적 안내"; return `${region.city} ${region.district} 입주청소 | ${uniqueSuffix}`; }
 function getRegionImagePath(slug: string) { return regionImageOverrides[slug] ?? `/images/regions/${slug}.webp`; }
-
 export function generateStaticParams() { return Object.keys(regions).map(key => { const [sido, sigungu] = key.split("/"); return { sido, sigungu }; }); }
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) return {};
-  const imagePath = getRegionImagePath(region.slug); const metaDescription = getMetaDescription(region.slug, region.description); const seoTitle = getSeoTitle(region);
-  return { title: seoTitle, description: metaDescription, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: seoTitle, description: metaDescription, type: "article", images: [{ url: imagePath, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } };
-}
+export async function generateMetadata({ params }: Props): Promise<Metadata> { const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) return {}; const imagePath = getRegionImagePath(region.slug); const metaDescription = getMetaDescription(region.slug, region.description); const seoTitle = getSeoTitle(region); return { title: seoTitle, description: metaDescription, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: seoTitle, description: metaDescription, type: "article", images: [{ url: imagePath, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } }; }
 
 export default async function RegionPage({ params }: Props) {
-  const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) notFound();
-  const imagePath = getRegionImagePath(region.slug); const metaDescription = getMetaDescription(region.slug, region.description); const seoTitle = getSeoTitle(region);
+  const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) notFound(); const imagePath = getRegionImagePath(region.slug); const metaDescription = getMetaDescription(region.slug, region.description); const seoTitle = getSeoTitle(region);
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: region.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "홈", item: SITE_URL }, { "@type": "ListItem", position: 2, name: "지역별 입주청소", item: `${SITE_URL}/cleaning` }, { "@type": "ListItem", position: 3, name: region.city, item: `${SITE_URL}/cleaning/${sido}` }, { "@type": "ListItem", position: 4, name: `${region.city} ${region.district}`, item: `${SITE_URL}/cleaning/${region.slug}` }] };
   const articleSchema = { "@context": "https://schema.org", "@type": "Article", headline: seoTitle, description: metaDescription, inLanguage: "ko-KR", mainEntityOfPage: `${SITE_URL}/cleaning/${region.slug}`, about: [{ "@type": "Thing", name: `${region.city} ${region.district} 입주청소` }, { "@type": "Place", name: `${region.city} ${region.district}` }], author: { "@type": "Organization", name: "올바른청소", url: SITE_URL }, publisher: { "@type": "Organization", name: "올바른청소", url: SITE_URL } };
-  return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
     <section className="regionHero"><div className="shell"><nav className="breadcrumbs" aria-label="현재 위치"><Link href="/">홈</Link><span>›</span><Link href="/cleaning">지역별 입주청소</Link><span>›</span><Link href={`/cleaning/${sido}`}>{region.city}</Link><span>›</span><b>{region.district}</b></nav><div className="regionHeroGrid"><div><span className="eyebrow">{region.eyebrow}</span><h1>{seoTitle}</h1><p>{region.description}</p><div className="regionActions"><a className="button" href={INQUIRY_URL}>견적문의 →</a><a className="textLink" href="#local-check">지역 체크포인트 보기 ↓</a></div></div><Image src={imagePath} alt={`${region.city} ${region.district} 입주청소 지역 대표 이미지`} width={1200} height={800} sizes="(max-width: 850px) 100vw, 40vw" priority style={{ width: "100%", height: "auto", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 22, display: "block" }} /></div></div></section>
     <nav className="areaJump" aria-label={`${region.district} 주요 생활권 바로가기`}><div className="shell"><b>{region.city} {region.district} 주요 생활권</b><div>{region.zones.map((zone, index) => <a href={`#area-${index + 1}`} key={zone.name}>{zone.name}<span>↓</span></a>)}</div></div></nav>
     <section className="regionSection shell"><div className="regionIntro"><div><span className="eyebrow">LOCAL FINGERPRINT</span><h2>{region.city} {region.district}에서는<br/>이 조건부터 보세요</h2></div><div>{region.intro.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div><div className="intentGrid">{region.searchNeeds.map((need, index) => <div key={need}><span>0{index + 1}</span><b>{need}</b></div>)}</div></section>
