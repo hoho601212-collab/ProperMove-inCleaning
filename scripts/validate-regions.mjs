@@ -5,6 +5,7 @@ const requiredKeys = ["title", "description", "intro", "searchNeeds", "zones", "
 const regionMatches = [...source.matchAll(/\n\s*"([a-z-]+\/[a-z-]+)":\s*\{/g)];
 const regionBlocks = regionMatches.map((match, index) => ({ slug: match[1], text: source.slice(match.index, regionMatches[index + 1]?.index ?? source.lastIndexOf("\n};")) }));
 const regionSlugs = new Set(regionBlocks.map(region => region.slug));
+const regionDistricts = new Map(regionBlocks.map(region => [region.slug, region.text.match(/district:\s*"([^"]+)"/)?.[1] ?? ""]));
 const errors = [];
 const warnings = [];
 const seen = new Map();
@@ -24,7 +25,8 @@ for (const region of regionBlocks) {
   if (zoneCount < 4) errors.push(`${region.slug}: 생활권 4개 미만`);
 
   const nearbySource = region.text.match(/nearby:\s*\[([\s\S]*?)\],\n\s*sources/)?.[1] ?? "";
-  const nearbyLinks = [...nearbySource.matchAll(/href:\s*"\/cleaning\/([a-z-]+\/[a-z-]+)"/g)].map(match => match[1]);
+  const nearbyEntries = [...nearbySource.matchAll(/label:\s*"([^"]+)",\s*href:\s*"\/cleaning\/([a-z-]+\/[a-z-]+)"/g)].map(match => ({ label: match[1], slug: match[2] }));
+  const nearbyLinks = nearbyEntries.map(entry => entry.slug);
   const currentSido = region.slug.split("/")[0];
   const sameSidoLinks = nearbyLinks.filter(slug => slug.split("/")[0] === currentSido);
   const crossSidoLinks = nearbyLinks.filter(slug => slug.split("/")[0] !== currentSido);
@@ -37,9 +39,18 @@ for (const region of regionBlocks) {
   const duplicateNearby = nearbyLinks.filter((slug, index) => nearbyLinks.indexOf(slug) !== index);
   if (duplicateNearby.length) errors.push(`${region.slug}: 함께 보는 지역 링크 중복 (${[...new Set(duplicateNearby)].join(", ")})`);
 
-  for (const linkedSlug of nearbyLinks) {
-    if (!regionSlugs.has(linkedSlug)) errors.push(`${region.slug}: 존재하지 않는 함께 보는 지역 링크 /cleaning/${linkedSlug}`);
+  for (const entry of nearbyEntries) {
+    const linkedSlug = entry.slug;
+    if (!regionSlugs.has(linkedSlug)) {
+      errors.push(`${region.slug}: 존재하지 않는 함께 보는 지역 링크 /cleaning/${linkedSlug}`);
+      continue;
+    }
     if (linkedSlug === region.slug) errors.push(`${region.slug}: 자기 자신을 함께 보는 지역으로 연결`);
+    const linkedDistrict = regionDistricts.get(linkedSlug);
+    if (linkedDistrict && !entry.label.includes(linkedDistrict.replace(/[구군시동]$/, ""))) {
+      warnings.push(`${region.slug}: 링크 문구 '${entry.label}'와 대상 지역 '${linkedDistrict}' 확인 필요`);
+    }
+    if (!entry.label.includes("입주청소")) warnings.push(`${region.slug}: 내부링크 문구에 '입주청소' 누락 (${entry.label})`);
   }
 }
 
@@ -53,4 +64,4 @@ if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`지역 ${regionBlocks.length}곳 검증 완료: 필수 콘텐츠·제목·설명·소개·생활권·내부링크 통과`);
+console.log(`지역 ${regionBlocks.length}곳 검증 완료: 필수 콘텐츠·제목·설명·소개·생활권·내부링크·앵커텍스트 통과`);
