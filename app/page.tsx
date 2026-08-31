@@ -10,6 +10,7 @@ import UpcomingApartments from "@/components/UpcomingApartments";
 import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
 import brandStyles from "./home-brand-marquee.module.css";
+import "./home-hero.css";
 
 export const metadata = {
   title: "입주청소 비교견적 | 청소 범위·지역별 준비 가이드",
@@ -57,7 +58,7 @@ function BrandTrack() {
 export default function Home() {
   const featured = regionList.filter(region => featuredRegions.some(([, href]) => href.endsWith(region.slug)));
   return <>
-    <section className="homeHero"><div className="shell homeHeroGrid"><div><span className="eyebrow">MOVE-IN CLEANING GUIDE</span><h1>입주청소,<br/>같은 기준으로 비교하세요.</h1><p>청소 범위와 현장 조건을 먼저 확인하고, 여러 업체의 견적을 같은 기준으로 비교할 수 있도록 돕습니다.</p><div className="heroActions"><a className="button" href={INQUIRY_URL}>무료 견적문의 →</a><Link className="textLink" href="/guide/move-in-cleaning-checklist">청소 준비 체크리스트 →</Link></div></div><div className="homeHeroImage"><Image src="/images/home/main-cleaning.webp" alt="입주청소 작업 현장에서 전문 장비로 청소하는 모습" width={1200} height={800} priority sizes="(max-width: 850px) 100vw, 48vw" /></div></div></section>
+    <section className="homeHero"><div className="shell homeHeroGrid"><div><span className="eyebrow">MOVE-IN CLEANING GUIDE</span><h1>입주청소,<br/>같은 기준으로 비교하세요.</h1><p>청소 범위와 현장 조건을 먼저 확인하고, 여러 업체의 견적을 같은 기준으로 비교할 수 있도록 돕습니다.</p><div className="heroActions"><a className="button" href={INQUIRY_URL}>무료 견적문의 →</a><Link className="textLink" href="/guide/move-in-cleaning-checklist">청소 준비 체크리스트 →</Link></div></div><div className="homeHeroImage"><Image src="/images/home/main-cleaning.webp" alt="입주청소 작업 현장에서 전문 장비로 청소하는 모습" width={1200} height={800} priority sizes="(max-width: 720px) 100vw, 52vw" /></div></div></section>
     <section className="brandMarqueeSection" aria-label="주요 아파트 브랜드"><div className={brandStyles.marquee}><BrandTrack/><BrandTrack/></div></section>
     <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING SERVICES</span><h2>주거 형태와 상황에 맞는<br/>청소 정보를 확인하세요.</h2></div><Link href="/service" className="textLink">청소 종류 전체보기 →</Link></div><div className="serviceGrid">{services.map(([title, desc, href, number]) => <Link href={href} className="serviceCard" key={href}><span>{number}</span><h3>{title}</h3><p>{desc}</p><b>자세히 보기 →</b></Link>)}</div></section>
     <CleaningScope />
