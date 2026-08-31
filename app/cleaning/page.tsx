@@ -3,10 +3,18 @@ import RegionDirectory from "@/components/RegionDirectory";
 import { regionList } from "@/lib/regions";
 import { SITE_URL } from "@/lib/site";
 
-export const metadata = { title: "전국 지역별 입주청소", description: "공식 지역 자료와 생활권별 주거·접근 조건을 바탕으로 만든 독립적인 입주청소 지역 가이드입니다.", alternates: { canonical: "/cleaning" } };
+const hubTitle = "전국 입주청소 | 서울·부산·경기 등 지역별 청소 가이드";
+const hubDescription = "서울·부산·대구·인천·경기 등 전국 주요 지역의 입주청소 정보를 한곳에서 확인하세요. 아파트·오피스텔·저층주거의 청소 범위와 창호·수납·분진, 출입·주차 조건을 지역별로 비교할 수 있습니다.";
+
+export const metadata = {
+  title: hubTitle,
+  description: hubDescription,
+  alternates: { canonical: "/cleaning" },
+  openGraph: { title: hubTitle, description: hubDescription },
+};
 
 export default function CleaningHub() {
   const cityHubs = [...new Map(regionList.map(region => [region.slug.split("/")[0], region.city])).entries()];
-  const collectionSchema = { "@context": "https://schema.org", "@type": "CollectionPage", name: "전국 지역별 입주청소", url: `${SITE_URL}/cleaning`, description: "생활권·건물·작업 동선을 조사한 지역별 입주청소 가이드", mainEntity: { "@type": "ItemList", numberOfItems: regionList.length, itemListElement: regionList.map((region, index) => ({ "@type": "ListItem", position: index + 1, name: `${region.district} 입주청소`, url: `${SITE_URL}/cleaning/${region.slug}` })) } };
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} /><section className="pageHero"><div className="shell"><span className="eyebrow">LOCAL CLEANING GUIDE</span><h1>전국 지역별 입주청소</h1><p>지역명만 바꾼 정보가 아니라 생활권·건물·작업 동선을 조사한 지역부터 공개합니다.</p></div></section><section className="section shell"><div className="hubIntro"><h2>검증된 지역부터<br/>하나씩 깊게 만듭니다.</h2><p>지역 가격을 임의로 만들지 않습니다. 공동주택, 오피스텔, 저층 주거의 차이와 주차·엘리베이터·골목 접근처럼 실제 견적에 필요한 조건을 정리합니다.</p></div><nav className="cityHubLinks" aria-label="시·도별 입주청소 가이드">{cityHubs.map(([slug, city]) => <Link href={`/cleaning/${slug}`} key={slug}>{city}<span>→</span></Link>)}</nav><RegionDirectory regions={regionList.map(({ slug, city, district, description }) => ({ slug, city, district, description }))} /></section></>;
+  const collectionSchema = { "@context": "https://schema.org", "@type": "CollectionPage", name: hubTitle, url: `${SITE_URL}/cleaning`, description: hubDescription, inLanguage: "ko-KR", mainEntity: { "@type": "ItemList", numberOfItems: regionList.length, itemListElement: regionList.map((region, index) => ({ "@type": "ListItem", position: index + 1, name: `${region.city} ${region.district} 입주청소`, url: `${SITE_URL}/cleaning/${region.slug}` })) } };
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} /><section className="pageHero"><div className="shell"><span className="eyebrow">LOCAL CLEANING GUIDE</span><h1>전국 입주청소 지역별 가이드</h1><p>서울·부산·경기 등 주요 시·도부터 구·군과 생활권까지, 실제 주거 형태와 현장 조건에 맞춰 입주청소 정보를 비교할 수 있습니다.</p></div></section><section className="section shell"><div className="hubIntro"><h2>지역마다 다른 주거 형태와<br/>청소 조건을 비교하세요.</h2><p>공동주택, 오피스텔, 저층 주거의 차이와 신축 분진·창호·수납, 구축 생활오염, 주차·엘리베이터·골목 접근처럼 실제 견적에 필요한 조건을 지역별로 정리했습니다.</p></div><nav className="cityHubLinks" aria-label="시·도별 입주청소 가이드">{cityHubs.map(([slug, city]) => <Link href={`/cleaning/${slug}`} key={slug}>{city} 입주청소<span>→</span></Link>)}</nav><RegionDirectory regions={regionList.map(({ slug, city, district, description }) => ({ slug, city, district, description }))} /></section></>;
 }
