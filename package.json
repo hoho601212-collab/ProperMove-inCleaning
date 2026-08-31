@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run validate:regions && npm run audit:seo",
+    "prebuild": "npm run validate:regions && npm run audit:seo && npm run audit:index",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "validate:regions": "node scripts/validate-regions.mjs",
-    "audit:seo": "node scripts/seo-audit.mjs"
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "audit:index": "node scripts/site-index-audit.mjs"
   },
   "dependencies": {
     "next": "16.3.1",
