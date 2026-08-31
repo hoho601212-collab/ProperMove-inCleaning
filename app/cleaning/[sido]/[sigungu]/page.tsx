@@ -9,22 +9,13 @@ import { SITE_URL } from "@/lib/site";
 type Props = { params: Promise<{ sido: string; sigungu: string }> };
 
 const regionImageOverrides: Record<string, string> = {
-  "daejeon/daedeok": "/images/regions/daejeon/daedeok.webp",
-  "daejeon/doan": "/images/regions/daejeon/doan.webp",
-  "daejeon/dunsan": "/images/regions/daejeon/dunsan.webp",
-  "daejeon/gwanjeo": "/images/regions/daejeon/gwanjeo.webp",
-  "daejeon/jung": "/images/regions/daejeon/jung_daejeon.webp",
-  "daejeon/noeun": "/images/regions/daejeon/noeun.webp",
-  "daejeon/seo": "/images/regions/daejeon/seo_daejeon.webp",
-  "daejeon/yuseong": "/images/regions/daejeon/yuseong.webp",
-  "daejeon/dong": "/images/regions/daejeon/dong_daejeon.webp",
+  "daejeon/daedeok": "/images/regions/daejeon/daedeok.webp", "daejeon/doan": "/images/regions/daejeon/doan.webp", "daejeon/dunsan": "/images/regions/daejeon/dunsan.webp", "daejeon/gwanjeo": "/images/regions/daejeon/gwanjeo.webp", "daejeon/jung": "/images/regions/daejeon/jung_daejeon.webp", "daejeon/noeun": "/images/regions/daejeon/noeun.webp", "daejeon/seo": "/images/regions/daejeon/seo_daejeon.webp", "daejeon/yuseong": "/images/regions/daejeon/yuseong.webp", "daejeon/dong": "/images/regions/daejeon/dong_daejeon.webp",
 };
 
 const representativeApartmentKeywords: Record<string, string> = {
   "seoul/gangnam": "래미안 레벤투스 입주청소", "seoul/songpa": "잠실르엘 입주청소", "seoul/seocho": "디에이치 방배 입주청소", "seoul/eunpyeong": "힐스테이트 메디알레 입주청소", "seoul/gangseo": "마곡 10-2BL 입주청소", "seoul/dongdaemun": "청량리 롯데캐슬 하이루체 입주청소", "seoul/yeongdeungpo": "영등포자이 디그니티 입주청소", "seoul/mapo": "광흥창역 입주청소", "seoul/gangdong": "e편한세상 강동 프레스티지원 입주청소", "seoul/dongjak": "힐스테이트 장승배기역 입주청소", "seoul/guro": "개봉 루브루 입주청소", "seoul/dobong": "도봉 금호어울림 리버파크 입주청소", "seoul/gangbuk": "엘리프 미아역 2단지 입주청소", "seoul/gwangjin": "강변역 센트럴 아이파크 입주청소", "seoul/seongbuk": "보문 센트럴 아이파크 입주청소", "seoul/seodaemun": "경희궁 유보라 입주청소", "seoul/yangcheon": "신정282 입주청소",
   "busan/haeundae": "해운대 엘시티 더샵 입주청소", "busan/suyeong": "남천 삼익비치 입주청소", "busan/gangseo": "에코델타시티 입주청소", "busan/saha": "다대 롯데캐슬 몰운대 입주청소", "busan/buk": "화명 롯데캐슬 카이저 입주청소", "busan/dongnae": "사직 쌍용예가 입주청소", "busan/yeonje": "거제 롯데캐슬 피렌체 입주청소", "busan/geumjeong": "장전 래미안 입주청소", "busan/nam": "LG메트로시티 입주청소",
-  "daegu/suseong": "수성 범어W 입주청소", "daegu/dalseo": "월배 아이파크 입주청소", "daegu/buk": "대구역 센트럴자이 입주청소", "daegu/dong": "율하 롯데캐슬 TOP CLASS 입주청소", "daegu/dalseong": "대실역 e편한세상 입주청소",
-  "incheon/yeonsu": "송도 더샵 퍼스트월드 입주청소",
+  "daegu/suseong": "수성 범어W 입주청소", "daegu/dalseo": "월배 아이파크 입주청소", "daegu/buk": "대구역 센트럴자이 입주청소", "daegu/dong": "율하 롯데캐슬 TOP CLASS 입주청소", "daegu/dalseong": "대실역 e편한세상 입주청소", "incheon/yeonsu": "송도 더샵 퍼스트월드 입주청소",
   "gyeonggi/suwon": "매교역 푸르지오 SK VIEW 입주청소", "gyeonggi/seongnam": "산성역 포레스티아 입주청소", "gyeonggi/yongin": "성복역 롯데캐슬 골드타운 입주청소", "gyeonggi/goyang": "일산 두산위브더제니스 입주청소",
   "daejeon/yuseong": "도안신도시 트리풀시티 입주청소", "daejeon/dunsan": "둔산 크로바아파트 입주청소", "daejeon/doan": "도안 아이파크 입주청소", "daejeon/gwanjeo": "관저 더샵 입주청소", "daejeon/noeun": "노은 한화꿈에그린 입주청소",
   "gwangju/gwangsan": "수완 대방노블랜드 입주청소", "gwangju/suwan": "수완 대방노블랜드 입주청소", "gwangju/cheomdan": "첨단2지구 호반베르디움 입주청소", "gwangju/bongseon": "봉선 제일풍경채 엘리트파크 입주청소", "gwangju/nam": "봉선 제일풍경채 엘리트파크 입주청소",
@@ -47,6 +38,9 @@ const seoTitleSuffixes: Record<string, string> = {
   "ulsan/nam": "아파트·주상복합 청소 범위와 견적 비교", "ulsan/buk": "신축·대단지 아파트 분진 청소 준비", "ulsan/ulju": "아파트·단독주거 청소 범위와 접근조건 확인", "ulsan/dong": "아파트·구축주거 창호와 오염 청소 체크", "ulsan/jung": "도심 아파트 입주 전 청소 조건과 동선 비교", "ulsan/samsan": "아파트·주상복합 창호와 수납 청소 확인", "ulsan/mugeo": "아파트·주거단지 청소 범위와 검수 준비", "ulsan/songjeong": "신축 대단지 아파트 분진·수납 청소 체크",
   "chungbuk/cheongju": "대단지 아파트 창호·수납 청소 범위 확인", "chungbuk/chungju": "아파트·신축주거 입주 전 청소 조건 비교", "chungbuk/jecheon": "공동주택·저층주거 청소 범위와 접근 체크", "chungbuk/jincheon": "혁신도시·신축 아파트 분진 청소 준비", "chungbuk/eumseong": "공동주택·읍면권 청소 조건과 출장 범위 확인", "chungbuk/okcheon": "아파트·저층주거 청소 범위와 동선 비교", "chungbuk/jeungpyeong": "신축·기존 아파트 창틀과 수납 청소 체크", "chungbuk/yeongdong": "공동주택·읍면주거 청소 조건과 접근 확인",
   "chungnam/cheonan": "불당·대단지 아파트 청소 범위와 검수 체크", "chungnam/asan": "탕정·신축 아파트 분진과 수납 청소 준비", "chungnam/dangjin": "신축·기존 아파트 청소 조건과 견적 비교", "chungnam/seosan": "아파트·저층주거 청소 범위와 접근조건 확인", "chungnam/gongju": "공동주택·기존주거 창틀과 오염 청소 체크", "chungnam/hongseong": "신도시·공동주택 입주 전 청소 범위 비교", "chungnam/nonsan": "아파트·저층주거 청소 조건과 동선 확인", "chungnam/boryeong": "공동주택·읍면주거 청소 범위와 출장 체크",
+  "jeonbuk/jeonju": "에코시티·대단지 아파트 청소 범위와 검수", "jeonbuk/iksan": "신축·기존 아파트 창호와 수납 청소 비교", "jeonbuk/gunsan": "디오션시티·신축 아파트 분진 청소 준비", "jeonbuk/jeongeup": "공동주택·저층주거 청소 범위와 접근 체크", "jeonbuk/wanju": "신축 공동주택·읍면권 청소 조건 확인", "jeonbuk/namwon": "아파트·기존주거 창틀과 생활오염 청소", "jeonbuk/gimje": "공동주택·저층주거 청소 조건과 출장 비교", "jeonbuk/buan": "부안읍·공동주택 청소 범위와 접근조건 확인",
+  "gyeongnam/changwon": "대단지 아파트·주상복합 청소 범위와 검수", "gyeongnam/gimhae": "신축·대단지 아파트 분진과 수납 청소", "gyeongnam/yangsan": "신도시·공동주택 입주 전 청소 조건 비교", "gyeongnam/jinju": "혁신도시·신축 아파트 청소 범위와 검수", "gyeongnam/geoje": "아파트·공동주택 창호와 오염 청소 체크", "gyeongnam/tongyeong": "공동주택·저층주거 청소 범위와 접근 확인", "gyeongnam/sacheon": "신축·기존 아파트 청소 조건과 동선 비교", "gyeongnam/miryang": "아파트·읍면주거 청소 범위와 출장 체크", "gyeongnam/geochang": "공동주택·저층주거 청소 조건과 접근 비교",
+  "gyeongbuk/pohang": "대단지 아파트 창호·수납 청소 범위 확인", "gyeongbuk/gumi": "확장단지·신축 아파트 분진 청소 준비", "gyeongbuk/gyeongsan": "신도시·대단지 아파트 청소 범위와 검수", "gyeongbuk/andong": "공동주택·기존주거 청소 조건과 동선 확인", "gyeongbuk/gyeongju": "신축·기존 아파트 창틀과 오염 청소 비교", "gyeongbuk/gimcheon": "혁신도시·공동주택 입주 전 청소 범위 체크", "gyeongbuk/yeongju": "아파트·저층주거 청소 조건과 접근 확인", "gyeongbuk/yeongcheon": "공동주택·읍면주거 청소 범위와 출장 비교",
 };
 
 function getMetaDescription(slug: string, description: string) { const apartmentKeyword = representativeApartmentKeywords[slug]; return apartmentKeyword ? `${description} ${apartmentKeyword}` : description; }
