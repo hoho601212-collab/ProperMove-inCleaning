@@ -20,90 +20,20 @@ const regionImageOverrides: Record<string, string> = {
   "daejeon/dong": "/images/regions/daejeon/dong_daejeon.webp",
 };
 
-// 지역별 대표 아파트 검색 키워드입니다. 2026년 입주 예정 대단지가 확인되는 지역을 우선하고,
-// 그렇지 않은 곳은 지역을 대표하는 대단지 위주로 사용합니다. 확신하기 어려운 지역은 기존 설명을 유지합니다.
 const representativeApartmentKeywords: Record<string, string> = {
-  "seoul/gangnam": "래미안 레벤투스 입주청소",
-  "seoul/songpa": "잠실르엘 입주청소",
-  "seoul/seocho": "디에이치 방배 입주청소",
-  "seoul/eunpyeong": "힐스테이트 메디알레 입주청소",
-  "seoul/gangseo": "마곡 10-2BL 입주청소",
-  "seoul/dongdaemun": "청량리 롯데캐슬 하이루체 입주청소",
-  "seoul/yeongdeungpo": "영등포자이 디그니티 입주청소",
-  "seoul/mapo": "광흥창역 입주청소",
-  "seoul/gangdong": "e편한세상 강동 프레스티지원 입주청소",
-  "seoul/dongjak": "힐스테이트 장승배기역 입주청소",
-  "seoul/guro": "개봉 루브루 입주청소",
-  "seoul/dobong": "도봉 금호어울림 리버파크 입주청소",
-  "seoul/gangbuk": "엘리프 미아역 2단지 입주청소",
-  "seoul/gwangjin": "강변역 센트럴 아이파크 입주청소",
-  "seoul/seongbuk": "보문 센트럴 아이파크 입주청소",
-  "seoul/seodaemun": "경희궁 유보라 입주청소",
-  "seoul/yangcheon": "신정282 입주청소",
-
-  "busan/haeundae": "해운대 엘시티 더샵 입주청소",
-  "busan/suyeong": "남천 삼익비치 입주청소",
-  "busan/gangseo": "에코델타시티 입주청소",
-  "busan/saha": "다대 롯데캐슬 몰운대 입주청소",
-  "busan/buk": "화명 롯데캐슬 카이저 입주청소",
-  "busan/dongnae": "사직 쌍용예가 입주청소",
-  "busan/yeonje": "거제 롯데캐슬 피렌체 입주청소",
-  "busan/geumjeong": "장전 래미안 입주청소",
-  "busan/nam": "LG메트로시티 입주청소",
-
-  "daegu/suseong": "수성 범어W 입주청소",
-  "daegu/dalseo": "월배 아이파크 입주청소",
-  "daegu/buk": "대구역 센트럴자이 입주청소",
-  "daegu/dong": "율하 롯데캐슬 TOP CLASS 입주청소",
-  "daegu/dalseong": "대실역 e편한세상 입주청소",
-
+  "seoul/gangnam": "래미안 레벤투스 입주청소", "seoul/songpa": "잠실르엘 입주청소", "seoul/seocho": "디에이치 방배 입주청소", "seoul/eunpyeong": "힐스테이트 메디알레 입주청소", "seoul/gangseo": "마곡 10-2BL 입주청소", "seoul/dongdaemun": "청량리 롯데캐슬 하이루체 입주청소", "seoul/yeongdeungpo": "영등포자이 디그니티 입주청소", "seoul/mapo": "광흥창역 입주청소", "seoul/gangdong": "e편한세상 강동 프레스티지원 입주청소", "seoul/dongjak": "힐스테이트 장승배기역 입주청소", "seoul/guro": "개봉 루브루 입주청소", "seoul/dobong": "도봉 금호어울림 리버파크 입주청소", "seoul/gangbuk": "엘리프 미아역 2단지 입주청소", "seoul/gwangjin": "강변역 센트럴 아이파크 입주청소", "seoul/seongbuk": "보문 센트럴 아이파크 입주청소", "seoul/seodaemun": "경희궁 유보라 입주청소", "seoul/yangcheon": "신정282 입주청소",
+  "busan/haeundae": "해운대 엘시티 더샵 입주청소", "busan/suyeong": "남천 삼익비치 입주청소", "busan/gangseo": "에코델타시티 입주청소", "busan/saha": "다대 롯데캐슬 몰운대 입주청소", "busan/buk": "화명 롯데캐슬 카이저 입주청소", "busan/dongnae": "사직 쌍용예가 입주청소", "busan/yeonje": "거제 롯데캐슬 피렌체 입주청소", "busan/geumjeong": "장전 래미안 입주청소", "busan/nam": "LG메트로시티 입주청소",
+  "daegu/suseong": "수성 범어W 입주청소", "daegu/dalseo": "월배 아이파크 입주청소", "daegu/buk": "대구역 센트럴자이 입주청소", "daegu/dong": "율하 롯데캐슬 TOP CLASS 입주청소", "daegu/dalseong": "대실역 e편한세상 입주청소",
   "incheon/yeonsu": "송도 더샵 퍼스트월드 입주청소",
-
-  "gyeonggi/suwon": "매교역 푸르지오 SK VIEW 입주청소",
-  "gyeonggi/seongnam": "산성역 포레스티아 입주청소",
-  "gyeonggi/yongin": "성복역 롯데캐슬 골드타운 입주청소",
-  "gyeonggi/goyang": "일산 두산위브더제니스 입주청소",
-
-  "daejeon/yuseong": "도안신도시 트리풀시티 입주청소",
-  "daejeon/dunsan": "둔산 크로바아파트 입주청소",
-  "daejeon/doan": "도안 아이파크 입주청소",
-  "daejeon/gwanjeo": "관저 더샵 입주청소",
-  "daejeon/noeun": "노은 한화꿈에그린 입주청소",
-
-  "gwangju/gwangsan": "수완 대방노블랜드 입주청소",
-  "gwangju/suwan": "수완 대방노블랜드 입주청소",
-  "gwangju/cheomdan": "첨단2지구 호반베르디움 입주청소",
-  "gwangju/bongseon": "봉선 제일풍경채 엘리트파크 입주청소",
-  "gwangju/nam": "봉선 제일풍경채 엘리트파크 입주청소",
-
-  "ulsan/nam": "문수로 아이파크 입주청소",
-  "ulsan/samsan": "삼산 현대아파트 입주청소",
-  "ulsan/mugeo": "무거 위브자이 입주청소",
-  "ulsan/buk": "송정 한라비발디 캠퍼스 입주청소",
-  "ulsan/songjeong": "송정 한라비발디 캠퍼스 입주청소",
-
-  "gyeongnam/changwon": "창원 중동 유니시티 입주청소",
-  "gyeongnam/gimhae": "김해 센텀 두산위브더제니스 입주청소",
-  "gyeongnam/yangsan": "양산 대방노블랜드 입주청소",
-  "gyeongnam/jinju": "진주 혁신도시 중흥S-클래스 입주청소",
-  "gyeongnam/geoje": "거제 아이파크 입주청소",
-
-  "chungbuk/cheongju": "청주 지웰시티 입주청소",
-  "chungbuk/chungju": "충주 호암 힐데스하임 입주청소",
-  "chungbuk/jincheon": "충북혁신도시 센텀클래스 입주청소",
-
-  "gyeongbuk/pohang": "포항자이 입주청소",
-  "gyeongbuk/gumi": "구미 확장단지 골드클래스 입주청소",
-  "gyeongbuk/gyeongsan": "펜타힐즈 더샵 입주청소",
-  "gyeongbuk/gyeongju": "경주 현곡 푸르지오 입주청소",
-
-  "chungnam/cheonan": "천안 불당 지웰시티 푸르지오 입주청소",
-  "chungnam/asan": "아산 탕정 호반써밋 입주청소",
-  "chungnam/dangjin": "당진 수청 한라비발디 캠퍼스 입주청소",
-
-  "jeonbuk/jeonju": "에코시티 더샵 입주청소",
-  "jeonbuk/iksan": "익산 자이 그랜드파크 입주청소",
-  "jeonbuk/gunsan": "디오션시티 더샵 입주청소",
+  "gyeonggi/suwon": "매교역 푸르지오 SK VIEW 입주청소", "gyeonggi/seongnam": "산성역 포레스티아 입주청소", "gyeonggi/yongin": "성복역 롯데캐슬 골드타운 입주청소", "gyeonggi/goyang": "일산 두산위브더제니스 입주청소",
+  "daejeon/yuseong": "도안신도시 트리풀시티 입주청소", "daejeon/dunsan": "둔산 크로바아파트 입주청소", "daejeon/doan": "도안 아이파크 입주청소", "daejeon/gwanjeo": "관저 더샵 입주청소", "daejeon/noeun": "노은 한화꿈에그린 입주청소",
+  "gwangju/gwangsan": "수완 대방노블랜드 입주청소", "gwangju/suwan": "수완 대방노블랜드 입주청소", "gwangju/cheomdan": "첨단2지구 호반베르디움 입주청소", "gwangju/bongseon": "봉선 제일풍경채 엘리트파크 입주청소", "gwangju/nam": "봉선 제일풍경채 엘리트파크 입주청소",
+  "ulsan/nam": "문수로 아이파크 입주청소", "ulsan/samsan": "삼산 현대아파트 입주청소", "ulsan/mugeo": "무거 위브자이 입주청소", "ulsan/buk": "송정 한라비발디 캠퍼스 입주청소", "ulsan/songjeong": "송정 한라비발디 캠퍼스 입주청소",
+  "gyeongnam/changwon": "창원 중동 유니시티 입주청소", "gyeongnam/gimhae": "김해 센텀 두산위브더제니스 입주청소", "gyeongnam/yangsan": "양산 대방노블랜드 입주청소", "gyeongnam/jinju": "진주 혁신도시 중흥S-클래스 입주청소", "gyeongnam/geoje": "거제 아이파크 입주청소",
+  "chungbuk/cheongju": "청주 지웰시티 입주청소", "chungbuk/chungju": "충주 호암 힐데스하임 입주청소", "chungbuk/jincheon": "충북혁신도시 센텀클래스 입주청소",
+  "gyeongbuk/pohang": "포항자이 입주청소", "gyeongbuk/gumi": "구미 확장단지 골드클래스 입주청소", "gyeongbuk/gyeongsan": "펜타힐즈 더샵 입주청소", "gyeongbuk/gyeongju": "경주 현곡 푸르지오 입주청소",
+  "chungnam/cheonan": "천안 불당 지웰시티 푸르지오 입주청소", "chungnam/asan": "아산 탕정 호반써밋 입주청소", "chungnam/dangjin": "당진 수청 한라비발디 캠퍼스 입주청소",
+  "jeonbuk/jeonju": "에코시티 더샵 입주청소", "jeonbuk/iksan": "익산 자이 그랜드파크 입주청소", "jeonbuk/gunsan": "디오션시티 더샵 입주청소",
 };
 
 function getMetaDescription(slug: string, description: string) {
@@ -111,37 +41,38 @@ function getMetaDescription(slug: string, description: string) {
   return apartmentKeyword ? `${description} ${apartmentKeyword}` : description;
 }
 
-function getRegionImagePath(slug: string) {
-  return regionImageOverrides[slug] ?? `/images/regions/${slug}.webp`;
+function getSeoTitle(region: { city: string; district: string; title: string }) {
+  const titleParts = region.title.split(/[｜|]/).map(part => part.trim()).filter(Boolean);
+  const uniqueSuffix = titleParts.length > 1 ? titleParts.slice(1).join(" · ") : "지역별 청소 범위와 견적 안내";
+  return `${region.city} ${region.district} 입주청소 | ${uniqueSuffix}`;
 }
+
+function getRegionImagePath(slug: string) { return regionImageOverrides[slug] ?? `/images/regions/${slug}.webp`; }
 
 export function generateStaticParams() { return Object.keys(regions).map(key => { const [sido, sigungu] = key.split("/"); return { sido, sigungu }; }); }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`];
-  if (!region) return {};
-  const imagePath = getRegionImagePath(region.slug);
-  const metaDescription = getMetaDescription(region.slug, region.description);
-  return { title: region.title, description: metaDescription, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: region.title, description: metaDescription, type: "article", images: [{ url: imagePath, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } };
+  const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) return {};
+  const imagePath = getRegionImagePath(region.slug); const metaDescription = getMetaDescription(region.slug, region.description); const seoTitle = getSeoTitle(region);
+  return { title: seoTitle, description: metaDescription, alternates: { canonical: `/cleaning/${region.slug}` }, openGraph: { title: seoTitle, description: metaDescription, type: "article", images: [{ url: imagePath, alt: `${region.city} ${region.district} 입주청소 지역 대표 이미지` }] } };
 }
 
 export default async function RegionPage({ params }: Props) {
   const { sido, sigungu } = await params; const region = regions[`${sido}/${sigungu}`]; if (!region) notFound();
-  const imagePath = getRegionImagePath(region.slug);
-  const metaDescription = getMetaDescription(region.slug, region.description);
+  const imagePath = getRegionImagePath(region.slug); const metaDescription = getMetaDescription(region.slug, region.description); const seoTitle = getSeoTitle(region);
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: region.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "홈", item: SITE_URL }, { "@type": "ListItem", position: 2, name: "지역별 입주청소", item: `${SITE_URL}/cleaning` }, { "@type": "ListItem", position: 3, name: region.city, item: `${SITE_URL}/cleaning/${sido}` }, { "@type": "ListItem", position: 4, name: `${region.city} ${region.district}`, item: `${SITE_URL}/cleaning/${region.slug}` }] };
-  const articleSchema = { "@context": "https://schema.org", "@type": "Article", headline: region.title, description: metaDescription, inLanguage: "ko-KR", mainEntityOfPage: `${SITE_URL}/cleaning/${region.slug}`, about: [{ "@type": "Thing", name: `${region.district} 입주청소` }, { "@type": "Place", name: `${region.city} ${region.district}` }], author: { "@type": "Organization", name: "올바른청소", url: SITE_URL }, publisher: { "@type": "Organization", name: "올바른청소", url: SITE_URL } };
+  const articleSchema = { "@context": "https://schema.org", "@type": "Article", headline: seoTitle, description: metaDescription, inLanguage: "ko-KR", mainEntityOfPage: `${SITE_URL}/cleaning/${region.slug}`, about: [{ "@type": "Thing", name: `${region.city} ${region.district} 입주청소` }, { "@type": "Place", name: `${region.city} ${region.district}` }], author: { "@type": "Organization", name: "올바른청소", url: SITE_URL }, publisher: { "@type": "Organization", name: "올바른청소", url: SITE_URL } };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-    <section className="regionHero"><div className="shell"><nav className="breadcrumbs" aria-label="현재 위치"><Link href="/">홈</Link><span>›</span><Link href="/cleaning">지역별 입주청소</Link><span>›</span><Link href={`/cleaning/${sido}`}>{region.city}</Link><span>›</span><b>{region.district}</b></nav><div className="regionHeroGrid"><div><span className="eyebrow">{region.eyebrow}</span><h1>{region.title}</h1><p>{region.description}</p><div className="regionActions"><a className="button" href={INQUIRY_URL}>견적문의 →</a><a className="textLink" href="#local-check">지역 체크포인트 보기 ↓</a></div></div><Image src={imagePath} alt={`${region.city} ${region.district} 입주청소 지역 대표 이미지`} width={1200} height={800} sizes="(max-width: 850px) 100vw, 40vw" priority style={{ width: "100%", height: "auto", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 22, display: "block" }} /></div></div></section>
-    <nav className="areaJump" aria-label={`${region.district} 주요 생활권 바로가기`}><div className="shell"><b>{region.district} 주요 생활권</b><div>{region.zones.map((zone, index) => <a href={`#area-${index + 1}`} key={zone.name}>{zone.name}<span>↓</span></a>)}</div></div></nav>
-    <section className="regionSection shell"><div className="regionIntro"><div><span className="eyebrow">LOCAL FINGERPRINT</span><h2>{region.district}에서는<br/>이 조건부터 보세요</h2></div><div>{region.intro.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div><div className="intentGrid">{region.searchNeeds.map((need, index) => <div key={need}><span>0{index + 1}</span><b>{need}</b></div>)}</div></section>
-    <section className="regionSection regionSoft"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">MAIN LIVING AREAS</span><h2>{region.district} 주요 지역별 청소 포인트</h2></div><span className="sectionNote">동 이름보다 실제 건물 조건이 우선입니다</span></div><div className="zoneDetailGrid">{region.zones.map((zone, index) => <article id={`area-${index + 1}`} key={zone.name}><div className="zoneNumber">{String(index + 1).padStart(2, "0")}</div><div className="zoneDetailBody"><span className="zoneHousing">{zone.housing}</span><h3>{zone.name}</h3><p>{zone.cleaning}</p><div className="zoneQuote"><b>견적 문의에 함께 적기</b><ul>{region.checklist.slice(index % 3, index % 3 + 3).map(item => <li key={item}>{item}</li>)}</ul></div></div></article>)}</div></div></section>
+    <section className="regionHero"><div className="shell"><nav className="breadcrumbs" aria-label="현재 위치"><Link href="/">홈</Link><span>›</span><Link href="/cleaning">지역별 입주청소</Link><span>›</span><Link href={`/cleaning/${sido}`}>{region.city}</Link><span>›</span><b>{region.district}</b></nav><div className="regionHeroGrid"><div><span className="eyebrow">{region.eyebrow}</span><h1>{seoTitle}</h1><p>{region.description}</p><div className="regionActions"><a className="button" href={INQUIRY_URL}>견적문의 →</a><a className="textLink" href="#local-check">지역 체크포인트 보기 ↓</a></div></div><Image src={imagePath} alt={`${region.city} ${region.district} 입주청소 지역 대표 이미지`} width={1200} height={800} sizes="(max-width: 850px) 100vw, 40vw" priority style={{ width: "100%", height: "auto", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 22, display: "block" }} /></div></div></section>
+    <nav className="areaJump" aria-label={`${region.district} 주요 생활권 바로가기`}><div className="shell"><b>{region.city} {region.district} 주요 생활권</b><div>{region.zones.map((zone, index) => <a href={`#area-${index + 1}`} key={zone.name}>{zone.name}<span>↓</span></a>)}</div></div></nav>
+    <section className="regionSection shell"><div className="regionIntro"><div><span className="eyebrow">LOCAL FINGERPRINT</span><h2>{region.city} {region.district}에서는<br/>이 조건부터 보세요</h2></div><div>{region.intro.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div><div className="intentGrid">{region.searchNeeds.map((need, index) => <div key={need}><span>0{index + 1}</span><b>{need}</b></div>)}</div></section>
+    <section className="regionSection regionSoft"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">MAIN LIVING AREAS</span><h2>{region.city} {region.district} 주요 지역별 청소 포인트</h2></div><span className="sectionNote">동 이름보다 실제 건물 조건이 우선입니다</span></div><div className="zoneDetailGrid">{region.zones.map((zone, index) => <article id={`area-${index + 1}`} key={zone.name}><div className="zoneNumber">{String(index + 1).padStart(2, "0")}</div><div className="zoneDetailBody"><span className="zoneHousing">{zone.housing}</span><h3>{zone.name}</h3><p>{zone.cleaning}</p><div className="zoneQuote"><b>견적 문의에 함께 적기</b><ul>{region.checklist.slice(index % 3, index % 3 + 3).map(item => <li key={item}>{item}</li>)}</ul></div></div></article>)}</div></div></section>
     <section className="regionSection shell"><div className="buildCompare"><article><span className="compareLabel new">신축·준신축</span><h2>공사 잔여물을 따로 확인</h2><ul>{region.newBuild.map(item => <li key={item}>{item}</li>)}</ul></article><article><span className="compareLabel old">기존·구축</span><h2>생활 오염과 접근 조건 확인</h2><ul>{region.oldBuild.map(item => <li key={item}>{item}</li>)}</ul></article></div><p className="infoNotice">신축 청소가 실내공기질 개선이나 의학적 효과를 보장하지는 않습니다. 청소, 환기, 실내공기질 측정은 서로 다른 영역입니다.</p></section>
     <section className="regionSection accessSection"><div className="shell accessGrid"><div><span className="eyebrow">ACCESS & PARKING</span><h2>작업 전 출입·주차 확인</h2><p>청소 품질뿐 아니라 작업자가 집까지 장비를 옮길 수 있는 조건도 예상 인원과 시간에 영향을 줄 수 있습니다.</p></div><ol>{region.access.map((item, index) => <li key={item}><b>{index + 1}</b><span>{item}</span></li>)}</ol></div></section>
-    <section id="local-check" className="regionSection shell"><div className="sectionHead"><div><span className="eyebrow">LOCAL CHECKLIST</span><h2>{region.district} 입주청소 견적 체크</h2></div><Link href="/guide/move-in-cleaning-checklist" className="textLink">전체 준비 가이드 →</Link></div><div className="localChecklist">{region.checklist.map(item => <div key={item}><i>✓</i><span>{item}</span></div>)}</div></section>
-    <section className="regionSection regionSoft"><div className="shell faqLayout"><div><span className="eyebrow">LOCAL FAQ</span><h2>{region.district}에서 자주 묻는 질문</h2><p>업체마다 기본 범위와 추가요금 기준이 다를 수 있으므로 최종 견적서에서 다시 확인하세요.</p></div><div className="faqList">{region.faq.map(item => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></div></section>
+    <section id="local-check" className="regionSection shell"><div className="sectionHead"><div><span className="eyebrow">LOCAL CHECKLIST</span><h2>{region.city} {region.district} 입주청소 견적 체크</h2></div><Link href="/guide/move-in-cleaning-checklist" className="textLink">전체 준비 가이드 →</Link></div><div className="localChecklist">{region.checklist.map(item => <div key={item}><i>✓</i><span>{item}</span></div>)}</div></section>
+    <section className="regionSection regionSoft"><div className="shell faqLayout"><div><span className="eyebrow">LOCAL FAQ</span><h2>{region.city} {region.district}에서 자주 묻는 질문</h2><p>업체마다 기본 범위와 추가요금 기준이 다를 수 있으므로 최종 견적서에서 다시 확인하세요.</p></div><div className="faqList">{region.faq.map(item => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></div></section>
     <section className="regionSection shell"><div className="sourceBox"><div><span className="eyebrow">FACT CHECK</span><h2>지역 정보 확인 자료</h2><p>지역의 행정구역과 주거 특징은 공식 자료를 우선 참고했습니다. 가격이나 특정 업체의 품질을 의미하지 않습니다.</p></div><div>{region.sources.map(source => <a href={source.href} target="_blank" rel="noreferrer" key={source.href}>{source.label}<span>↗</span></a>)}</div></div><div className="nearby"><b>함께 보는 지역</b>{region.nearby.map(item => <Link href={item.href} key={item.href}>{item.label} →</Link>)}</div></section>
     <section className="finalCta"><div className="shell"><span>{region.city} {region.district} 청소 조건을 정리했다면</span><h2>같은 작업 범위를 기준으로<br/>견적문의를 시작하세요.</h2><a href={INQUIRY_URL} className="button buttonWhite">견적문의 시작하기 →</a></div></section>
   </>;
