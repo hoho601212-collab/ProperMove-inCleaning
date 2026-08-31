@@ -25,8 +25,14 @@ for (const region of regionBlocks) {
 
   const nearbySource = region.text.match(/nearby:\s*\[([\s\S]*?)\],\n\s*sources/)?.[1] ?? "";
   const nearbyLinks = [...nearbySource.matchAll(/href:\s*"\/cleaning\/([a-z-]+\/[a-z-]+)"/g)].map(match => match[1]);
+  const currentSido = region.slug.split("/")[0];
+  const sameSidoLinks = nearbyLinks.filter(slug => slug.split("/")[0] === currentSido);
+  const crossSidoLinks = nearbyLinks.filter(slug => slug.split("/")[0] !== currentSido);
+
   if (!nearbySource) warnings.push(`${region.slug}: 함께 보는 지역 링크 없음`);
   if (nearbyLinks.length && nearbyLinks.length < 2) warnings.push(`${region.slug}: 함께 보는 지역 링크가 2개 미만`);
+  if (nearbyLinks.length >= 2 && sameSidoLinks.length === 0) warnings.push(`${region.slug}: 같은 시·도 내부의 함께 보는 지역 링크가 없음`);
+  if (nearbyLinks.length >= 3 && crossSidoLinks.length === nearbyLinks.length) warnings.push(`${region.slug}: 모든 함께 보는 지역 링크가 다른 시·도임`);
 
   const duplicateNearby = nearbyLinks.filter((slug, index) => nearbyLinks.indexOf(slug) !== index);
   if (duplicateNearby.length) errors.push(`${region.slug}: 함께 보는 지역 링크 중복 (${[...new Set(duplicateNearby)].join(", ")})`);
