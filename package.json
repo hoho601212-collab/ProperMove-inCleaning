@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run validate:regions && npm run audit:seo",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
@@ -18,7 +19,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
+    "@types/react-dom": "^19.1.0",
     "typescript": "^5.7.0"
   }
 }
