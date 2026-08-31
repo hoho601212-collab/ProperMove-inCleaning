@@ -44,7 +44,12 @@ const seoTitleSuffixes: Record<string, string> = {
   "gyeongbuk/pohang": "대단지 아파트 창호·수납 청소 범위 확인", "gyeongbuk/gumi": "확장단지·신축 아파트 분진 청소 준비", "gyeongbuk/gyeongsan": "신도시·대단지 아파트 청소 범위와 검수", "gyeongbuk/andong": "공동주택·기존주거 청소 조건과 동선 확인", "gyeongbuk/gyeongju": "신축·기존 아파트 창틀과 오염 청소 비교", "gyeongbuk/gimcheon": "혁신도시·공동주택 입주 전 청소 범위 체크", "gyeongbuk/yeongju": "아파트·저층주거 청소 조건과 접근 확인", "gyeongbuk/yeongcheon": "공동주택·읍면주거 청소 범위와 출장 비교",
 };
 
-function getMetaDescription(slug: string, description: string) { const apartmentKeyword = representativeApartmentKeywords[slug]; return apartmentKeyword ? `${description} ${apartmentKeyword}` : description; }
+function getMetaDescription(slug: string, description: string) {
+  const apartmentKeyword = representativeApartmentKeywords[slug];
+  if (!apartmentKeyword) return description;
+  const apartmentName = apartmentKeyword.replace(/\s*입주청소$/, "");
+  return `${description} ${apartmentName} 등 지역 단지의 입주청소 조건도 함께 확인하세요.`;
+}
 function getSeoTitle(region: { slug: string; city: string; district: string; title: string }) { const customSuffix = seoTitleSuffixes[region.slug]; if (customSuffix) return `${region.city} ${region.district} 입주청소 | ${customSuffix}`; const titleParts = region.title.split(/[｜|]/).map(part => part.trim()).filter(Boolean); const uniqueSuffix = titleParts.length > 1 ? titleParts.slice(1).join(" · ") : "지역별 청소 범위와 견적 안내"; return `${region.city} ${region.district} 입주청소 | ${uniqueSuffix}`; }
 function getRegionImagePath(slug: string) { return regionImageOverrides[slug] ?? `/images/regions/${slug}.webp`; }
 export function generateStaticParams() { return Object.keys(regions).map(key => { const [sido, sigungu] = key.split("/"); return { sido, sigungu }; }); }
