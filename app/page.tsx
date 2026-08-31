@@ -11,6 +11,7 @@ import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
 import brandStyles from "./home-brand-marquee.module.css";
 import "./home-hero.css";
+import "./home-region-preview.css";
 
 export const metadata = {
   title: "입주청소 비교견적 | 청소 범위·지역별 준비 가이드",
@@ -65,7 +66,7 @@ export default function Home() {
     <SpecialReasons />
     <SpaceCleaningServices />
     <UpcomingApartments />
-    <section className="section regionPreview"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">LOCAL CLEANING GUIDE</span><h2>지역별 입주청소 조건도<br/>미리 확인하세요.</h2></div><Link href="/cleaning" className="textLink">전국 지역 가이드 →</Link></div><div className="regionPreviewGrid">{featured.map(region => <Link href={`/cleaning/${region.slug}`} key={region.slug}><span>{region.city}</span><h3>{region.district} 입주청소</h3><p>{region.description}</p><b>지역 가이드 →</b></Link>)}</div></div></section>
+    <section className="section regionPreview"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">LOCAL CLEANING GUIDE</span><h2>지역별 입주청소 조건도<br/>미리 확인하세요.</h2></div><Link href="/cleaning" className="textLink">전국 지역 가이드 →</Link></div><div className="regionPreviewGrid">{featured.map(region => <Link href={`/cleaning/${region.slug}`} key={region.slug}><span>{region.city}</span><h3>{region.district} 입주청소</h3><p>{region.description}</p><b>지역 가이드</b></Link>)}</div></div></section>
     <CustomerReviews />
     <HomeTools />
     <PlanningTools />
