@@ -11,7 +11,16 @@ import { INQUIRY_URL } from "@/lib/inquiry";
 import { regionList } from "@/lib/regions";
 import brandStyles from "./home-brand-marquee.module.css";
 
-export const metadata = { alternates: { canonical: "/" } };
+export const metadata = {
+  title: "입주청소 비교견적 | 청소 범위·지역별 준비 가이드",
+  description: "입주청소 업체를 알아보기 전 청소 범위와 추가 확인사항을 살펴보고 견적을 비교하세요. 아파트·오피스텔·원룸과 서울·부산·경기 등 지역별 입주청소 가이드도 제공합니다.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "입주청소 비교견적 | 청소 범위·지역별 준비 가이드",
+    description: "입주청소 범위와 현장 조건을 확인하고 같은 기준으로 업체 견적을 비교하세요. 주거형태별·지역별 청소 준비 정보도 함께 확인할 수 있습니다.",
+    url: "/",
+  },
+};
 
 const services = [
   ["입주청소", "신축·공사 분진부터 수납장 안쪽까지", "/service/move-in-cleaning", "01"],
@@ -42,52 +51,23 @@ const apartmentBrands = [
 ] as const;
 
 function BrandTrack() {
-  return <div className={brandStyles.track} aria-hidden="true">
-    {apartmentBrands.map(([ko, en, tone]) => <div className={`${brandStyles.brand} ${brandStyles[tone]}`} key={`${ko}-${en}`}>
-      <span className={brandStyles.mark}>{en.slice(0, 1)}</span>
-      <span className={brandStyles.word}><b>{ko}</b><small>{en}</small></span>
-    </div>)}
-  </div>;
+  return <div className={brandStyles.track} aria-hidden="true">{apartmentBrands.map(([ko, en, cls]) => <div className={`${brandStyles.item} ${brandStyles[cls]}`} key={`${ko}-${en}`}><b>{ko}</b><span>{en}</span></div>)}</div>;
 }
 
 export default function Home() {
+  const featured = regionList.filter(region => featuredRegions.some(([, href]) => href.endsWith(region.slug)));
   return <>
-    <section className="hero"><div className="shell heroGrid"><div>
-      <span className="eyebrow">전국 입주청소 비교 가이드</span>
-      <h1>입주청소, 가격만 보지 말고<br/><em>청소 범위와 작업조건</em>까지 비교하세요.</h1>
-      <p>필요한 청소 범위와 지역 조건을 먼저 확인하면<br/>업체마다 다른 견적을 같은 기준으로 비교할 수 있습니다.</p>
-      <div className="actions">{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button">견적문의 바로가기 <span>→</span></a><Link href="/cleaning" className="textLink">내 지역 입주청소 보기 <span>→</span></Link></div>
-      <div className="trustRow"><span>✓ 고정가격 단정 없음</span><span>✓ 견적 조건 한눈에</span><span>✓ 무료 신청</span></div>
-    </div><div aria-label="올바른청소 입주청소 현장 대표 이미지" style={{width:"100%",overflow:"hidden",borderRadius:24,background:"#fff",boxShadow:"0 28px 70px rgba(29,83,99,.15)"}}><Image src="/images/home/main-cleaning.webp" alt="빈 신축 아파트에서 올바른청소 전문팀이 입주청소를 진행하는 모습" width={1536} height={1024} sizes="(max-width: 850px) 100vw, 42vw" priority style={{width:"100%",height:"auto",aspectRatio:"3 / 2",objectFit:"cover",display:"block"}} /></div></div></section>
-
-    <section className={brandStyles.marqueeSection} aria-label="국내 대표 아파트 브랜드">
-      <div className={`shell ${brandStyles.marqueeShell}`}>
-        <div className={brandStyles.marquee}><BrandTrack /><BrandTrack /></div>
-      </div>
-    </section>
-
-    <SpecialReasons />
-
-    <SpaceCleaningServices />
-
-    <CustomerReviews />
-
+    <section className="homeHero"><div className="shell homeHeroGrid"><div><span className="eyebrow">MOVE-IN CLEANING GUIDE</span><h1>입주청소,<br/>같은 기준으로 비교하세요.</h1><p>청소 범위와 현장 조건을 먼저 확인하고, 여러 업체의 견적을 같은 기준으로 비교할 수 있도록 돕습니다.</p><div className="heroActions"><a className="button" href={INQUIRY_URL}>무료 견적문의 →</a><Link className="textLink" href="/guide/move-in-cleaning-checklist">청소 준비 체크리스트 →</Link></div></div><div className="homeHeroImage"><Image src="/images/home/main-cleaning.webp" alt="입주청소 작업 현장에서 전문 장비로 청소하는 모습" width={1200} height={800} priority sizes="(max-width: 850px) 100vw, 48vw" /></div></div></section>
+    <section className="brandMarqueeSection" aria-label="주요 아파트 브랜드"><div className={brandStyles.marquee}><BrandTrack/><BrandTrack/></div></section>
+    <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING SERVICES</span><h2>주거 형태와 상황에 맞는<br/>청소 정보를 확인하세요.</h2></div><Link href="/service" className="textLink">청소 종류 전체보기 →</Link></div><div className="serviceGrid">{services.map(([title, desc, href, number]) => <Link href={href} className="serviceCard" key={href}><span>{number}</span><h3>{title}</h3><p>{desc}</p><b>자세히 보기 →</b></Link>)}</div></section>
     <CleaningScope />
-
-    <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING SERVICE</span><h2>우리 집에 필요한 청소부터 확인하세요</h2></div><Link href="/service" className="textLink">전체 청소 종류 보기 →</Link></div><div className="serviceGrid">{services.map(([title, desc, href, no]) => <Link href={href} className="serviceCard" key={title}><span className="serviceNo">{no}</span><h3>{title}</h3><p>{desc}</p><b>자세히 보기 →</b></Link>)}</div></section>
-
-    <section className="softSection"><div className="shell splitIntro"><div><span className="eyebrow">SMART CHECK</span><h2>견적을 받기 전,<br/>우리 집 조건을 1분만에 정리하세요.</h2><p>면적과 청소 범위를 미리 정리하면 업체마다 다른 포함 항목을 더 정확히 비교할 수 있습니다.</p></div><div className="reasonList"><span><b>01</b><strong>면적</strong><small>㎡와 평 기준 확인</small></span><span><b>02</b><strong>공간</strong><small>방·욕실·베란다</small></span><span><b>03</b><strong>오염</strong><small>분진·곰팡이·기름때</small></span><span><b>04</b><strong>추가작업</strong><small>스티커·보호필름</small></span></div></div></section>
-
-    <HomeTools />
-
-    <PlanningTools />
-
-    <section className="section shell"><div className="sectionHead"><div><span className="eyebrow">CLEANING GUIDE</span><h2>청소 전후, 놓치기 쉬운 것들</h2></div><Link href="/guide" className="textLink">가이드 전체 보기 →</Link></div><div className="guideGrid"><Link href="/guide/cleaning-before-moving" className="guideCard mint"><span>청소 전</span><h3>가구가 들어오기 전<br/>무엇을 준비할까요?</h3><p>수도·전기·출입·주차·엘리베이터를 미리 확인하세요.</p><b>준비 체크리스트 →</b></Link><Link href="/guide/after-cleaning-inspection" className="guideCard navy"><span>청소 후</span><h3>눈높이 아래와 위까지<br/>현장에서 검수하세요.</h3><p>문틀 위, 창틀 모서리, 수납장 안쪽처럼 놓치기 쉬운 곳을 확인합니다.</p><b>검수 체크리스트 →</b></Link></div></section>
-
-    <section className="section shell"><div className="areaBox"><div><span className="eyebrow">LOCAL GUIDE</span><h2>전국 지역별 입주청소</h2><p>주거 형태와 작업 동선은 지역과 건물마다 다릅니다.<br/>내 지역에서 먼저 확인할 조건을 살펴보세요.</p><Link href="/cleaning" className="textLink">{regionList.length}개 지역 전체 보기 →</Link></div><div className="areaLinks">{featuredRegions.map(([label, href]) => <Link href={href} key={href}>{label}<span>→</span></Link>)}</div></div></section>
-
+    <SpecialReasons />
+    <SpaceCleaningServices />
     <UpcomingApartments />
-
-    <section className="finalCta"><div className="shell"><span>조건이 달라지면 견적도 달라집니다</span><h2>내 청소 조건을 정리하고<br/>견적문의를 시작해 보세요.</h2>{/* 기존 내부 견적 링크 임시 보존: /estimate */}<a href={INQUIRY_URL} className="button buttonWhite">견적문의 시작하기 →</a></div></section>
+    <section className="section regionPreview"><div className="shell"><div className="sectionHead"><div><span className="eyebrow">LOCAL CLEANING GUIDE</span><h2>지역별 입주청소 조건도<br/>미리 확인하세요.</h2></div><Link href="/cleaning" className="textLink">전국 지역 가이드 →</Link></div><div className="regionPreviewGrid">{featured.map(region => <Link href={`/cleaning/${region.slug}`} key={region.slug}><span>{region.city}</span><h3>{region.district} 입주청소</h3><p>{region.description}</p><b>지역 가이드 →</b></Link>)}</div></div></section>
+    <CustomerReviews />
+    <HomeTools />
+    <PlanningTools />
+    <section className="finalCta"><div className="shell"><span>청소 범위를 확인했다면</span><h2>같은 기준으로<br/>견적문의를 시작하세요.</h2><a href={INQUIRY_URL} className="button buttonWhite">무료 견적문의 →</a></div></section>
   </>;
 }
