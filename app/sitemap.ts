@@ -8,44 +8,45 @@ import { SITE_URL } from "@/lib/site";
  *
  * Next.js App Router가 이 파일을 /sitemap.xml 로 자동 노출합니다.
  * 지역/서비스/가이드 데이터가 추가되면 사이트맵에도 자동 반영됩니다.
+ *
+ * lastModified를 요청 시각으로 매번 생성하면 검색엔진에 모든 URL이 항상
+ * 수정된 것처럼 보일 수 있으므로 실제 SEO 개편일을 기준으로 고정합니다.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const seoUpdatedAt = new Date("2026-08-31T00:00:00+09:00");
 
   const fixedPages: MetadataRoute.Sitemap = [
     {
       url: SITE_URL,
-      lastModified: now,
+      lastModified: seoUpdatedAt,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${SITE_URL}/cleaning`,
-      lastModified: now,
+      lastModified: seoUpdatedAt,
       changeFrequency: "weekly",
       priority: 0.95,
     },
     {
       url: `${SITE_URL}/service`,
-      lastModified: now,
+      lastModified: seoUpdatedAt,
       changeFrequency: "monthly",
       priority: 0.85,
     },
     {
       url: `${SITE_URL}/guide`,
-      lastModified: now,
+      lastModified: seoUpdatedAt,
       changeFrequency: "weekly",
       priority: 0.85,
     },
     {
       url: `${SITE_URL}/privacy`,
-      lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/terms`,
-      lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,
     },
@@ -53,14 +54,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const servicePages: MetadataRoute.Sitemap = Object.keys(services).map((slug) => ({
     url: `${SITE_URL}/service/${slug}`,
-    lastModified: now,
+    lastModified: seoUpdatedAt,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
   const guidePages: MetadataRoute.Sitemap = Object.keys(guides).map((slug) => ({
     url: `${SITE_URL}/guide/${slug}`,
-    lastModified: now,
+    lastModified: seoUpdatedAt,
     changeFrequency: "monthly",
     priority: 0.75,
   }));
@@ -69,7 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const sidoSlugs = [...new Set(regionList.map((region) => region.slug.split("/")[0]))];
   const sidoPages: MetadataRoute.Sitemap = sidoSlugs.map((slug) => ({
     url: `${SITE_URL}/cleaning/${slug}`,
-    lastModified: now,
+    lastModified: seoUpdatedAt,
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -77,7 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 모든 지역 상세 페이지: lib/regions.ts에 등록된 지역을 자동 포함
   const regionPages: MetadataRoute.Sitemap = regionList.map((region) => ({
     url: `${SITE_URL}/cleaning/${region.slug}`,
-    lastModified: now,
+    lastModified: seoUpdatedAt,
     changeFrequency: "weekly",
     priority: 0.85,
   }));
