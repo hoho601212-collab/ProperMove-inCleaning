@@ -41,7 +41,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_NAME,
-    alternateName: [SITE_DOMAIN, `${SITE_NAME}.kr`],
+    alternateName: SITE_DOMAIN,
     url: SITE_URL,
     identifier: SITE_DOMAIN,
     inLanguage: "ko-KR",
