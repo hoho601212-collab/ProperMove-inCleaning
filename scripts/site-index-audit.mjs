@@ -53,7 +53,8 @@ for (const marker of ["fixedPages", "servicePages", "guidePages", "sidoPages", "
 if (sitemap.includes("const now = new Date()")) warnings.push("app/sitemap.ts: 요청 시각 기반 lastModified 사용 중");
 
 const site = read("lib/site.ts");
-if (!site.includes("NEXT_PUBLIC_SITE_URL") || !site.includes("https://올바른청소.kr")) failures.push("lib/site.ts: 운영 도메인 기본값 확인 필요");
+if (!site.includes('SITE_URL = "https://올바른청소.kr"')) failures.push("lib/site.ts: 대표 한글 운영 도메인이 고정되어 있지 않음");
+if (site.includes("NEXT_PUBLIC_SITE_URL")) warnings.push("lib/site.ts: 환경변수로 대표 도메인이 바뀔 수 있음");
 
 console.log("\n=== 올바른청소 검색 수집 구조 점검 ===");
 console.log(`canonical 점검 페이지 유형: ${pageFiles.length}개`);
