@@ -13,7 +13,7 @@ import { SITE_URL } from "@/lib/site";
  * 수정된 것처럼 보일 수 있으므로 실제 SEO 개편일을 기준으로 고정합니다.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const seoUpdatedAt = new Date("2026-08-31T00:00:00+09:00");
+  const seoUpdatedAt = new Date("2026-09-02T10:12:00+09:00");
 
   const fixedPages: MetadataRoute.Sitemap = [
     {
