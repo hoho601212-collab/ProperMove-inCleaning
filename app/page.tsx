@@ -13,13 +13,16 @@ import brandStyles from "./home-brand-marquee.module.css";
 import "./home-hero.css";
 import "./home-region-preview.css";
 
+const homeTitle = "올바른청소 | 입주청소 비교견적·청소 범위·지역별 가이드";
+const homeDescription = "올바른청소에서 입주청소 업체를 알아보기 전 청소 범위와 추가 확인사항을 살펴보고 견적을 비교하세요. 아파트·오피스텔·원룸과 서울·부산·경기 등 지역별 입주청소 가이드도 제공합니다.";
+
 export const metadata = {
-  title: "입주청소 비교견적 | 청소 범위·지역별 준비 가이드",
-  description: "입주청소 업체를 알아보기 전 청소 범위와 추가 확인사항을 살펴보고 견적을 비교하세요. 아파트·오피스텔·원룸과 서울·부산·경기 등 지역별 입주청소 가이드도 제공합니다.",
+  title: homeTitle,
+  description: homeDescription,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "입주청소 비교견적 | 청소 범위·지역별 준비 가이드",
-    description: "입주청소 범위와 현장 조건을 확인하고 같은 기준으로 업체 견적을 비교하세요. 주거형태별·지역별 청소 준비 정보도 함께 확인할 수 있습니다.",
+    title: homeTitle,
+    description: "올바른청소에서 입주청소 범위와 현장 조건을 확인하고 같은 기준으로 업체 견적을 비교하세요. 주거형태별·지역별 청소 준비 정보도 함께 확인할 수 있습니다.",
     url: "/",
   },
 };
